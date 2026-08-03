@@ -290,17 +290,23 @@
   .prefpick .pp-go{margin-top:11px;text-align:center;font-size:12px;font-weight:800;color:#fff;background:var(--indigo);border-radius:9px;padding:10px;cursor:pointer;}
   .prefpick .pp-go.dim{background:var(--ink-3);opacity:.6;}
   /* 无目的地: 三列对比表单 */
-  .citytable{margin-left:0;background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 4px 14px -6px rgba(30,20,60,.14);}
-  .citytable .ct-hd{display:flex;background:var(--paper);font-size:10.5px;font-weight:700;color:var(--ink-3);padding:9px 12px;}
-  .citytable .ct-hd .c1{flex:0 0 58px;} .citytable .ct-hd .c2{flex:1;} .citytable .ct-hd .c4{flex:0 0 78px;text-align:right;}
-  .citytable .ct-row{display:flex;align-items:stretch;padding:13px 12px;border-top:1px solid var(--line);gap:10px;}
-  .citytable .ct-row.on{background:var(--indigo-soft);}
-  .citytable .ct-row .c1{flex:0 0 58px;display:flex;flex-direction:column;justify-content:center;} .citytable .ct-row .c1 .cn{font-size:16px;font-weight:800;} .citytable .ct-row .c1 .rec{font-size:9.5px;font-weight:800;color:#fff;background:var(--glow);border-radius:5px;padding:1px 5px;margin-top:4px;align-self:flex-start;}
-  .citytable .ct-row .c2{flex:1;min-width:0;} .citytable .ct-row .c2 .wx{font-size:11.5px;color:var(--ink-2);font-weight:600;} .citytable .ct-row .c2 .hl{font-size:12px;color:var(--ink);margin-top:4px;line-height:1.45;} .citytable .ct-row .c2 .hl b{color:var(--indigo);}
-  .citytable .ct-row .c2 .cspots{font-size:10.5px;color:var(--ink-3);margin-top:5px;line-height:1.5;}
-  .citytable .ct-row .c4{flex:0 0 78px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;}
-  .citytable .ct-row .c4 .fp{font-size:15px;font-weight:800;color:var(--jd-red);line-height:1;} .citytable .ct-row .c4 .fp .q{font-size:10px;}
-  .citytable .ct-row .c4 .fl{font-size:9px;color:var(--ink-3);margin-top:3px;text-align:right;}
+  /* 目的地对比:纵向卡片(每城一卡,4行:城市+亮点 / 天气 / 景点 / 机票价+选TA) */
+  .citytable{margin-left:0;display:flex;flex-direction:column;gap:10px;}
+  .cc-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 14px;box-shadow:0 4px 14px -6px rgba(30,20,60,.14);}
+  .cc-card.rec{border-color:var(--indigo);box-shadow:0 6px 18px -6px rgba(126,23,230,.28);}
+  .cc-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .cc-h .cn{font-size:17px;font-weight:800;color:var(--ink);}
+  .cc-h .rec{font-size:9.5px;font-weight:800;color:#fff;background:var(--glow);border-radius:5px;padding:1px 6px;}
+  .cc-h .hl{font-size:12.5px;color:var(--ink-2);font-weight:600;} .cc-h .hl b{color:var(--indigo);font-weight:800;}
+  .cc-line{display:flex;align-items:flex-start;gap:7px;margin-top:9px;font-size:11.5px;line-height:1.5;}
+  .cc-line .ci{flex:0 0 auto;font-size:12px;}
+  .cc-line .ck{flex:0 0 40px;color:var(--ink-3);font-weight:700;}
+  .cc-line .cv{flex:1;color:var(--ink);}
+  .cc-line .cv b{color:var(--indigo);}
+  .cc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:11px;border-top:1px solid var(--line);}
+  .cc-foot .fp{font-size:16px;font-weight:800;color:var(--jd-red);line-height:1;} .cc-foot .fp .q{font-size:11px;} .cc-foot .fp .fl{display:block;font-size:9px;color:var(--ink-3);font-weight:600;margin-top:3px;}
+  .cc-foot .pick{font-size:12.5px;font-weight:800;color:#fff;background:var(--indigo);border-radius:10px;padding:9px 16px;cursor:pointer;flex:0 0 auto;}
+  .cc-foot .pick.used{opacity:.45;}
   /* ===== 场景态首页(行前/行中/行后) ===== */
   .scn{padding:0 20px;}
   .scn-hero{padding:20px 20px 0;} .scn-hero h1{font-size:17px;line-height:1.4;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;} .scn-hero h1 .spark{width:10px;height:10px;border-radius:50%;background:var(--glow);box-shadow:0 0 0 4px rgba(252,193,0,.14),0 0 14px rgba(252,193,0,.7);flex:0 0 auto;} .scn-hero h1 .go{color:var(--indigo);} .scn-hero .sub{font-size:13px;font-weight:600;color:var(--ink-3);margin-top:7px;line-height:1.5;}
@@ -1162,22 +1168,26 @@ async function runNoDest(){
   // 2) 需求确认
   await playUser(`我比较看重：${picked.join('、')}`);
   await playAI(`收到～按<span class="em">${picked.join('、')}</span>，我参考<span class="em">未来 2 周的天气和直飞机票价格</span>，给你对比了 3 个适合带娃的目的地 👇`, 900);
-  // 3) 三城市对比表(城市 / 天气·亮点·景点 / 未来2周直飞最低价)—— 只读对比,不在表上点选
+  // 3) 三城市对比(纵向卡片:①城市+亮点 ②未来2周天气解读 ③景点玩乐 ④机票最低价+选TA)
   const cities=[
-    {k:'qd',name:'青岛',rec:0,wx:'🌊 26℃ 海风凉爽',hl:'<b>海滨避暑</b>·沙滩赶海玩水',spots:['栈桥·海底世界','金沙滩','啤酒博物馆'],fp:680,fl:'8/5 最低'},
-    {k:'cd',name:'成都',rec:0,wx:'⛅ 28℃ 多云舒适',hl:'<b>熊猫+美食</b>·娃看熊猫',spots:['大熊猫基地','武侯祠','宽窄巷子'],fp:590,fl:'8/6 最低'},
-    {k:'xa',name:'西安',rec:1,wx:'☀️ 35℃ 晴·较热',hl:'<b>历史人文</b>·寓教于乐',spots:['兵马俑','西安城墙','大唐不夜城'],fp:770,fl:'8/2 最低'}
+    {k:'qd',name:'青岛',rec:0,ic:'🌊',hl:'<b>海滨避暑</b>·沙滩赶海玩水',wxd:'未来2周 24～27℃,海风凉爽不闷热,午后偶有阵雨,最适合带娃避暑',spots:'栈桥·海底世界 / 金沙滩赶海 / 啤酒博物馆',fp:680,fl:'8/5 最低'},
+    {k:'cd',name:'成都',rec:0,ic:'🐼',hl:'<b>熊猫+美食</b>·娃看熊猫',wxd:'未来2周 24～29℃,多云为主,湿度略高,早晚清爽,适合逛吃',spots:'大熊猫基地 / 武侯祠 / 宽窄巷子',fp:590,fl:'8/6 最低'},
+    {k:'xa',name:'西安',rec:1,ic:'🏯',hl:'<b>历史人文</b>·寓教于乐',wxd:'未来2周 26～36℃,晴晒偏热,正午紫外线强,记得防晒补水',spots:'兵马俑 / 西安城墙 / 大唐不夜城',fp:770,fl:'8/2 最低'}
   ];
-  const rows=cities.map(c=>`<div class="ct-row${c.rec?' on':''}"><div class="c1"><span class="cn">${c.name}</span>${c.rec?'<span class="rec">力荐</span>':''}</div><div class="c2"><div class="wx">${c.wx}</div><div class="hl">${c.hl}</div><div class="cspots">${c.spots.map(s=>'· '+s).join('　')}</div></div><div class="c4"><span class="fp"><span class="q">¥</span>${c.fp}<span class="q">起</span></span><span class="fl">直飞往返·${c.fl}</span></div></div>`).join('');
-  addMsg(el(`<div class="citytable"><div class="ct-hd"><span class="c1">城市</span><span class="c2">天气 · 亮点 · 推荐景点</span><span class="c4">未来2周直飞</span></div>${rows}</div>`));
+  const rows=cities.map(c=>`<div class="cc-card${c.rec?' rec':''}" data-city="${c.k}">
+    <div class="cc-h"><span class="cn">${c.ic} ${c.name}</span>${c.rec?'<span class="rec">力荐</span>':''}<span class="hl">${c.hl}</span></div>
+    <div class="cc-line"><span class="ci">🌤️</span><span class="ck">天气</span><span class="cv">${c.wxd}</span></div>
+    <div class="cc-line"><span class="ci">📍</span><span class="ck">玩乐</span><span class="cv">${c.spots}</span></div>
+    <div class="cc-foot"><span class="fp"><span class="q">¥</span>${c.fp}<span class="q">起</span><span class="fl">直飞往返 · ${c.fl}</span></span><span class="pick" data-city="${c.k}" data-name="${c.name}">看 ${c.name} 的规划 →</span></div>
+  </div>`).join('');
+  const tableNode=addMsg(el(`<div class="citytable">${rows}</div>`));
   await sleep(400);
-  // 表后 AI 追问 + 三城市引导 chips(符合对话逻辑,不在表上直接选)
-  await playAI('你对<span class="em">哪个城市</span>感兴趣？我给你做详细规划 👇', 850);
+  // 引导语(与选择动作合并:每张卡自带"看XX规划"按钮,这里一句引导即可)
+  await playAI('对哪个城市感兴趣？<span class="em">点卡片下方的「看 XX 的规划」</span>,我马上给你做详细安排 👇', 850);
   let sel='xa';
-  const chipBox=addMsg(el(`<div class="followups">${cities.map(c=>`<span class="fu" data-city="${c.k}" data-name="${c.name}"><span class="q">${c.name==='西安'?'🏯':c.name==='青岛'?'🌊':'🐼'} 就看「${c.name}」的规划</span></span>`).join('')}</div>`));
   await new Promise(res=>{
-    chipBox.querySelectorAll('.fu').forEach(fu=>{
-      fu.onclick=()=>{ sel=fu.dataset.city; chipBox.querySelectorAll('.fu').forEach(x=>x.style.pointerEvents='none'); fu.classList.add('used'); res(); };
+    tableNode.querySelectorAll('.pick').forEach(btn=>{
+      btn.onclick=()=>{ sel=btn.dataset.city; tableNode.querySelectorAll('.pick').forEach(x=>{x.style.pointerEvents='none';x.classList.add('used');}); btn.classList.remove('used'); res(); };
     });
   });
   // 4) 选后 → 详述 → 转规划
