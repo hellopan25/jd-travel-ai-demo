@@ -4,7 +4,11 @@
 
 ## 在线体验
 
-点开即用（手机浏览器打开效果最佳）：**见本仓库 GitHub Pages 地址**
+点开即用（手机浏览器打开效果最佳）：
+
+**https://hellopan25.github.io/jd-travel-ai-demo/**
+
+> 本页已设置 `noindex / nofollow` 及 `robots.txt`，不希望被搜索引擎收录抓取，仅供知道链接的人访问。
 
 ## 说明
 
