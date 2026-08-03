@@ -1178,7 +1178,7 @@ async function runNoDest(){
   // 3) 三城市对比表(每行一城市,3列:城市+特点 / 天气+交通价 / 景点)—— 靠引导语选城,不点表格
   const cities=[
     {k:'qd',name:'青岛',rec:0,ic:'🌊',hl:'<b>海滨避暑</b>沙滩赶海',wx:'24～27℃ 海风凉爽,午后偶阵雨',spots:['栈桥·海底世界','金沙滩赶海','啤酒博物馆'],trans:'高铁',price:920},
-    {k:'cd',name:'成都',rec:0,ic:'🐼',hl:'<b>熊猫+美食</b>逛吃',wx:'24～29℃ 多云,早晚清爽',spots:['大熊猫基地','武侯祠','宽窄巷子'],trans:'直飞',price:590},
+    {k:'cd',name:'成都',rec:0,ic:'🐼',hl:'<b>熊猫+美食</b>逛吃',wx:'24～29℃ 多云,早晚清爽',spots:['大熊猫基地','武侯祠','宽窄巷子'],trans:'直飞',price:1680},
     {k:'xa',name:'西安',rec:1,ic:'🏯',hl:'<b>历史人文</b>寓教于乐',wx:'26～36℃ 晴晒偏热,注意防晒',spots:['兵马俑','西安城墙','大唐不夜城'],trans:'高铁',price:1050}
   ];
   const rows=cities.map(c=>`<div class="cmp-row${c.rec?' on':''}" data-city="${c.k}" data-name="${c.name}">
