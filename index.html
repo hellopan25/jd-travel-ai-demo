@@ -301,21 +301,19 @@
   /* 无目的地: 三列对比表单 */
   /* 目的地对比表:每行一城市,3列横向对比(城市+特点 / 天气+机票 / 景点) */
   .citytable{margin-left:0;background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 4px 14px -6px rgba(30,20,60,.14);}
-  .cmp-hd{display:flex;background:var(--paper);font-size:9.5px;font-weight:800;color:var(--ink-3);padding:8px 11px;gap:8px;}
-  .cmp-hd .h1{flex:0 0 74px;} .cmp-hd .h2{flex:0 0 78px;} .cmp-hd .h3{flex:1;}
-  .cmp-row{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line);cursor:pointer;transition:.15s;align-items:stretch;}
+  .cmp-hd{display:flex;background:var(--paper);font-size:10.5px;font-weight:800;color:var(--ink-3);padding:9px 12px;gap:9px;}
+  .cmp-hd .h1{flex:0 0 76px;} .cmp-hd .h2{flex:0 0 92px;} .cmp-hd .h3{flex:1;}
+  .cmp-row{display:flex;gap:9px;padding:13px 12px;border-top:1px solid var(--line);align-items:stretch;}
   .cmp-row.on{background:var(--indigo-soft);}
-  .cmp-row .c-city{flex:0 0 74px;display:flex;flex-direction:column;gap:3px;}
-  .cmp-row .c-city .cn{font-size:14px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:3px;flex-wrap:wrap;}
-  .cmp-row .c-city .rec{font-size:8.5px;font-weight:800;color:#fff;background:var(--glow);border-radius:4px;padding:1px 4px;}
-  .cmp-row .c-city .feat{font-size:10px;color:var(--ink-2);font-weight:600;line-height:1.35;} .cmp-row .c-city .feat b{color:var(--indigo);}
-  .cmp-row .c-wm{flex:0 0 78px;display:flex;flex-direction:column;gap:4px;}
-  .cmp-row .c-wm .wx{font-size:10px;color:var(--ink-2);font-weight:600;line-height:1.3;}
-  .cmp-row .c-wm .fp{font-size:13px;font-weight:800;color:var(--jd-red);line-height:1;} .cmp-row .c-wm .fp .q{font-size:9px;} .cmp-row .c-wm .fp .fl{display:block;font-size:8.5px;color:var(--ink-3);font-weight:600;margin-top:2px;}
-  .cmp-row .c-spot{flex:1;min-width:0;font-size:10px;color:var(--ink-2);line-height:1.55;}
+  .cmp-row .c-city{flex:0 0 76px;display:flex;flex-direction:column;gap:4px;}
+  .cmp-row .c-city .cn{font-size:15.5px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+  .cmp-row .c-city .rec{font-size:9px;font-weight:800;color:#fff;background:var(--glow);border-radius:4px;padding:1px 5px;}
+  .cmp-row .c-city .feat{font-size:11.5px;color:var(--ink-2);font-weight:600;line-height:1.4;} .cmp-row .c-city .feat b{color:var(--indigo);}
+  .cmp-row .c-wm{flex:0 0 92px;display:flex;flex-direction:column;gap:5px;}
+  .cmp-row .c-wm .wx{font-size:11px;color:var(--ink-2);font-weight:600;line-height:1.4;}
+  .cmp-row .c-wm .fp{font-size:11px;color:var(--ink);font-weight:600;line-height:1.4;} .cmp-row .c-wm .fp b{color:var(--jd-red);font-weight:700;}
+  .cmp-row .c-spot{flex:1;min-width:0;font-size:11px;color:var(--ink-2);line-height:1.6;}
   .cmp-row .c-spot .sp{display:block;}
-  .cmp-row .c-sel{flex:0 0 auto;align-self:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;}
-  .cmp-row.on .c-sel{background:var(--indigo);border-color:var(--indigo);} .cmp-row .c-sel svg{width:11px;height:11px;color:#fff;opacity:0;} .cmp-row.on .c-sel svg{opacity:1;}
   /* ===== 场景态首页(行前/行中/行后) ===== */
   .scn{padding:0 20px;}
   .scn-hero{padding:20px 20px 0;} .scn-hero h1{font-size:17px;line-height:1.4;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;} .scn-hero h1 .spark{width:10px;height:10px;border-radius:50%;background:var(--glow);box-shadow:0 0 0 4px rgba(252,193,0,.14),0 0 14px rgba(252,193,0,.7);flex:0 0 auto;} .scn-hero h1 .go{color:var(--indigo);} .scn-hero .sub{font-size:13px;font-weight:600;color:var(--ink-3);margin-top:7px;line-height:1.5;}
@@ -1176,27 +1174,27 @@ async function runNoDest(){
   const picked=[...chosen];
   // 2) 需求确认
   await playUser(`我比较看重：${picked.join('、')}`);
-  await playAI(`收到～按<span class="em">${picked.join('、')}</span>，我参考<span class="em">未来 2 周的天气和直飞机票价格</span>，给你对比了 3 个适合带娃的目的地 👇`, 900);
-  // 3) 三城市对比表(每行一城市,3列横向对比:城市+特点 / 天气+机票 / 景点)
+  await playAI(`收到～按<span class="em">${picked.join('、')}</span>，我参考<span class="em">未来 2 周的天气和往返交通价格</span>，给你对比了 3 个适合带娃的目的地 👇`, 900);
+  // 3) 三城市对比表(每行一城市,3列:城市+特点 / 天气+交通价 / 景点)—— 靠引导语选城,不点表格
   const cities=[
-    {k:'qd',name:'青岛',rec:0,ic:'🌊',hl:'<b>海滨避暑</b>沙滩赶海',wx:'24～27℃ 海风凉爽,午后偶阵雨',spots:['栈桥·海底世界','金沙滩赶海','啤酒博物馆'],fp:680,fl:'8/5最低'},
-    {k:'cd',name:'成都',rec:0,ic:'🐼',hl:'<b>熊猫+美食</b>逛吃',wx:'24～29℃ 多云,早晚清爽',spots:['大熊猫基地','武侯祠','宽窄巷子'],fp:590,fl:'8/6最低'},
-    {k:'xa',name:'西安',rec:1,ic:'🏯',hl:'<b>历史人文</b>寓教于乐',wx:'26～36℃ 晴晒偏热,注意防晒',spots:['兵马俑','西安城墙','大唐不夜城'],fp:770,fl:'8/2最低'}
+    {k:'qd',name:'青岛',rec:0,ic:'🌊',hl:'<b>海滨避暑</b>沙滩赶海',wx:'24～27℃ 海风凉爽,午后偶阵雨',spots:['栈桥·海底世界','金沙滩赶海','啤酒博物馆'],trans:'高铁',price:920},
+    {k:'cd',name:'成都',rec:0,ic:'🐼',hl:'<b>熊猫+美食</b>逛吃',wx:'24～29℃ 多云,早晚清爽',spots:['大熊猫基地','武侯祠','宽窄巷子'],trans:'直飞',price:590},
+    {k:'xa',name:'西安',rec:1,ic:'🏯',hl:'<b>历史人文</b>寓教于乐',wx:'26～36℃ 晴晒偏热,注意防晒',spots:['兵马俑','西安城墙','大唐不夜城'],trans:'高铁',price:1050}
   ];
-  const tick='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
   const rows=cities.map(c=>`<div class="cmp-row${c.rec?' on':''}" data-city="${c.k}" data-name="${c.name}">
     <div class="c-city"><span class="cn">${c.ic}${c.name}${c.rec?'<span class="rec">力荐</span>':''}</span><span class="feat">${c.hl}</span></div>
-    <div class="c-wm"><span class="wx">${c.wx}</span><span class="fp"><span class="q">¥</span>${c.fp}<span class="q">起</span><span class="fl">直飞往返·${c.fl}</span></span></div>
+    <div class="c-wm"><span class="wx">${c.wx}</span><span class="fp">${c.trans}往返：<b>${c.price}元起</b></span></div>
     <div class="c-spot">${c.spots.map(s=>`<span class="sp">· ${s}</span>`).join('')}</div>
-    <div class="c-sel">${tick}</div>
   </div>`).join('');
-  const tableNode=addMsg(el(`<div class="citytable"><div class="cmp-hd"><span class="h1">城市 · 特点</span><span class="h2">天气 · 机票</span><span class="h3">游玩推荐</span></div>${rows}</div>`));
+  addMsg(el(`<div class="citytable"><div class="cmp-hd"><span class="h1">城市 · 特点</span><span class="h2">天气 · 交通</span><span class="h3">游玩推荐</span></div>${rows}</div>`));
   await sleep(400);
-  await playAI('三个城市帮你横向对比好了 👆 <span class="em">点一下感兴趣的城市</span>,我马上做详细规划 👇', 850);
+  // 靠引导语选城(不点表格):AI 一句 + 三城市引导 chips
+  await playAI('对哪个城市感兴趣？点下面告诉我，<span class="em">我马上做详细规划</span> 👇', 850);
   let sel='xa';
+  const chipBox=addMsg(el(`<div class="followups">${cities.map(c=>`<span class="fu" data-city="${c.k}"><span class="q">${c.ic} 就看「${c.name}」的规划</span></span>`).join('')}</div>`));
   await new Promise(res=>{
-    tableNode.querySelectorAll('.cmp-row').forEach(row=>{
-      row.onclick=()=>{ sel=row.dataset.city; tableNode.querySelectorAll('.cmp-row').forEach(x=>x.classList.remove('on')); row.classList.add('on'); tableNode.querySelectorAll('.cmp-row').forEach(x=>x.style.pointerEvents='none'); res(); };
+    chipBox.querySelectorAll('.fu').forEach(fu=>{
+      fu.onclick=()=>{ sel=fu.dataset.city; chipBox.querySelectorAll('.fu').forEach(x=>x.style.pointerEvents='none'); fu.classList.add('used'); res(); };
     });
   });
   // 4) 选后 → 详述 → 转规划
