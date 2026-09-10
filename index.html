@@ -503,16 +503,16 @@
   .daytab{margin-left:0;display:flex;gap:6px;} .daytab .d{flex:1;text-align:center;padding:7px 0;border-radius:10px;font-size:11.5px;font-weight:800;background:#fff;border:1px solid var(--line);color:var(--ink-2);} .daytab .d.on{background:var(--ink);color:#fff;border-color:var(--ink);} .daytab .d .s{display:block;font-size:8.5px;font-weight:500;margin-top:1px;color:var(--ink-3);} .daytab .d.on .s{color:rgba(255,255,255,.6);}
   .narr{margin-left:0;display:flex;gap:7px;background:var(--indigo-soft);border-radius:10px;padding:9px 11px;font-size:10.5px;color:var(--indigo);line-height:1.5;} .narr b{font-weight:800;}
   .tl{margin-left:0;position:relative;padding-left:26px;} .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;background:var(--line);}
-  .tl .dot{position:absolute;left:0;top:7px;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid var(--indigo);z-index:1;} .tl .dot.fill{background:var(--indigo);}
-  .tl .dot.d-trans{border-color:#3D7EFF;} .tl .dot.d-stay{border-color:var(--indigo);} .tl .dot.d-spot{border-color:#12A150;}
-  .tl .it{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px;}
-  .tl .it .nhead{display:flex;align-items:center;gap:7px;margin-bottom:5px;} .tl .it .ntm{font-size:11.5px;font-weight:800;color:var(--ink);} .tl .it .ncat{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;line-height:1.4;} .ncat.cat-trans{color:#3D7EFF;background:#EAF1FF;} .ncat.cat-stay{color:var(--indigo);background:var(--indigo-soft);} .ncat.cat-spot{color:#12A150;background:#E6F5EC;}
+  .tl .dot{position:absolute;left:-1px;top:6px;width:15px;height:15px;border-radius:50%;background:var(--indigo);border:none;z-index:1;box-shadow:0 0 0 2px #fff;} .tl .dot::after{content:'';position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);} .tl .dot.fill{background:var(--indigo);}
+  .tl .dot.d-trans,.tl .dot.d-stay,.tl .dot.d-spot{background:var(--indigo);}
+  .tl .it{background:#F5F5F7;border:none;border-radius:12px;padding:11px 13px;margin-bottom:10px;}
+  .tl .it .nhead{display:flex;align-items:center;gap:7px;margin-bottom:5px;} .tl .it .ntm{font-size:11.5px;font-weight:800;color:var(--ink);} .tl .it .ncat{font-size:12px;font-weight:700;padding:0;line-height:1.4;color:var(--ink);} .ncat.cat-trans,.ncat.cat-stay,.ncat.cat-spot{color:var(--ink);background:none;}
   .tl .it .nnm{font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:6px;}
   .tl .it .nnm .nlv{font-size:9px;color:#5E6880;font-weight:400;background:rgba(17,20,26,.08);padding:2px 4px;border-radius:2px;line-height:1;flex:0 0 auto;margin-right:auto;}
   /* 节点间过渡行(对齐设计稿:驾车/步行N分钟 灰字,无卡片,左侧无圆点) */
   .tl .move{font-size:10px;color:var(--ink-3);margin:-4px 0 10px 2px;display:flex;align-items:center;gap:5px;} .tl .move svg{width:12px;height:12px;flex:0 0 auto;opacity:.7;}
   .tl .it .nsub{font-size:10px;color:var(--ink-3);margin-top:2px;line-height:1.4;}
-  .tl .it .ntip{font-size:10px;color:var(--indigo);background:var(--indigo-soft);border-radius:6px;padding:5px 8px;margin-top:6px;line-height:1.45;} .tl .it .ntip.warn{color:#B8860B;background:#FDF3E0;}
+  .tl .it .ntip{font-size:10px;color:var(--indigo);background:none;padding:5px 0 0;margin-top:4px;line-height:1.45;} .tl .it .ntip.warn{color:var(--indigo);background:none;} .tl .it .ntip .tipstar{color:var(--indigo);margin-right:4px;font-weight:700;}
   /* 图文卡节点(入住/景点):图左文右 */
   .tl .it.card .nbody{display:flex;gap:9px;align-items:flex-start;}
   .tl .it.card .nthumb{width:64px;height:64px;border-radius:9px;flex:0 0 auto;background-size:cover;background-position:center;background-color:#EEEAF3;}
@@ -2028,7 +2028,7 @@ async function genItinerary(){
     const rows=arr.map((it,idx)=>{
       const ty=nodeType(it), imgf=nodeImg(it);
       const del=it.spotKey?`<span class="del" data-del="${it.spotKey}" title="删除"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2M19 6l-1 14a1 1 0 01-1 1H7a1 1 0 01-1-1L5 6M10 11v6M14 11v6"/></svg></span>`:'';
-      const tip=it.tip&&it.tip.t?`<div class="ntip${it.tip.w?' warn':''}">💡 ${it.tip.t}</div>`:'';
+      const tip=it.tip&&it.tip.t?`<div class="ntip${it.tip.w?' warn':''}"><span class="tipstar">✦</span>${it.tip.t}</div>`:'';
       const head=`<div class="nhead"><span class="ntm">${it.tm||''}</span><span class="ncat cat-${ty}">${catLabel[ty]}</span></div>`;
       const spotLv=(it.spotKey&&CAT.spots[it.spotKey]&&CAT.spots[it.spotKey].lv)?`<span class="nlv">${CAT.spots[it.spotKey].lv}</span>`:'';
       const mv=moveRow(it, arr[idx+1]);
@@ -2067,7 +2067,7 @@ async function genItinerary(){
     return days[n].map(it=>{
       const ty=nodeType(it), imgf=nodeImg(it);
       const del=it.spotKey?`<span class="del" data-del="${it.spotKey}" title="删除">${delIcon}</span>`:'';
-      const tip=it.tip&&it.tip.t?`<div class="ntip${it.tip.w?' warn':''}">💡 ${it.tip.t}</div>`:'';
+      const tip=it.tip&&it.tip.t?`<div class="ntip${it.tip.w?' warn':''}"><span class="tipstar">✦</span>${it.tip.t}</div>`:'';
       const head=`<div class="nhead"><span class="ntm">${it.tm||''}</span><span class="ncat cat-${ty}">${catLabel[ty]}</span></div>`;
       if(imgf) return `<div class="dot${it.done?' fill':''} d-${ty}"></div><div class="it card${it.spotKey?' editable':''}">${head}<div class="nbody"><div class="nthumb" style="background-image:url(${img(imgf)})"></div><div class="ninfo"><div class="nnm">${it.nm}${del}</div><div class="nsub">${it.sub||''}</div>${tip}</div></div></div>`;
       return `<div class="dot${it.done?' fill':''} d-${ty}"></div><div class="it">${head}<div class="nnm">${it.nm}</div><div class="nsub">${it.sub||''}</div>${tip}</div>`;
