@@ -211,6 +211,10 @@
   .qr{display:inline-flex;align-items:center;gap:5px;background:#fff;color:var(--indigo);border:1.5px solid var(--indigo);border-radius:18px;padding:9px 15px;font-size:12.5px;font-weight:700;cursor:pointer;}
   .qr.primary{display:flex;flex:1;justify-content:center;background:linear-gradient(135deg,#443C4D 0%,#120A1A 100%);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;box-shadow:0 6px 16px -4px rgba(18,10,26,.4);}
   .qr-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-left:0;}
+  .qr.ghost{background:#f2f3f7;color:var(--ink-2);border:1.5px solid transparent;}
+  /* 机酒下单页底部:门票稍后订 提示条 */
+  .bk-tknote{display:flex;align-items:center;gap:7px;background:#FFF8EC;border:1px dashed #F0D9A8;border-radius:10px;padding:9px 12px;margin:8px 0 0;font-size:11px;line-height:1.5;color:#8A6D2F;}
+  .bk-tknote .tkn-ic{flex:0 0 auto;font-size:14px;}
   /* zero 规格双按钮(node 1114:12797):分享机酒景=灰底#ebedf2/文字#664100;一键生成行程=紫渐变。各占一半,高44 圆角6 */
   .actbar{display:flex;gap:8px;width:100%;margin-left:0;}
   .actbar .btn{flex:1 0 0;min-width:0;height:44px;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:500;cursor:pointer;border:none;}
@@ -449,6 +453,11 @@
   .lcard.swapcard .sc{white-space:normal;} .lcard.swapcard .sc b{color:var(--indigo);}
   .lcard.swapcard .rsn{display:flex;gap:3px;font-size:9px;color:var(--indigo);background:var(--indigo-soft);border-radius:6px;padding:4px 6px;margin-top:6px;line-height:1.35;}
   .lcard.swapcard .lf .flag{width:auto;height:auto;border-radius:8px;font-size:11px;padding:5px 14px;background:var(--indigo);color:#fff;border:none;} .lcard.swapcard .lf .flag::after{content:none;} .lcard.swapcard .lf .flag svg{display:none;}
+  /* 选品页酒店卡:选中态醒目化(勾选圈在价格行 .lf,原样式只覆盖 .tagrow .flag 导致酒店卡无可见勾选) */
+  .lcard.hotelcard .lf .flag{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1.5px solid #C2C4CC;background:#fff;display:flex;align-items:center;justify-content:center;color:transparent;}
+  .lcard.hotelcard .lf .flag svg{width:13px;height:13px;}
+  .lcard.hotelcard.sel{border:1.5px solid #7E17E6;box-shadow:0 6px 18px -8px rgba(126,23,230,.28);}
+  .lcard.hotelcard.sel .lf .flag{border-color:transparent;background:linear-gradient(135deg,#443C4D 0%,#120A1A 100%);color:#fff;}
   .selbar{margin-left:0;display:flex;align-items:center;gap:8px;background:var(--indigo-soft);border:1px solid rgba(126,23,230,.2);border-radius:11px;padding:9px 12px;font-size:11px;font-weight:600;} .selbar b{color:var(--indigo);font-weight:800;}
   .selbar .sb-sum{margin-left:auto;color:var(--ink-2);font-weight:600;} .selbar .sb-sum b{color:var(--jd-red);font-size:12.5px;}
   .selbar .bud{font-size:11px;font-weight:700;color:var(--ink-2);margin-left:8px;}
@@ -597,6 +606,7 @@
   .newplan .np-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
   .newplan.open .np-body{max-height:1200px;}
   .newplan .np-inner{padding:0 13px 13px;}
+  .newplan .np-tab{margin-bottom:10px;}
   .newplan .np-map{height:170px;border-radius:12px;overflow:hidden;position:relative;background:#E8EDF5;margin-bottom:10px;} .newplan .np-map .mapbase{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
   .addspot.hide{display:none;}
   /* 加景点选择弹层 */
@@ -625,6 +635,32 @@
   .bk .br{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #EADAFB;font-size:11px;} .bk .br:last-child{border-bottom:none;} .bk .br .x{flex:1;color:var(--ink-2);} .bk .br .x b{color:var(--ink);} .bk .br .p{font-weight:800;color:var(--jd-red);font-size:11px;}
   /* 门票逐个勾选行 */
   .bk .bh .tk-hint{font-size:9px;color:var(--ink-3);font-weight:600;}
+  /* ===== 下单页交易卡片(严格按设计稿 node 1114:15573:拆3独立卡,#f2f4f7底,卡头勾选) ===== */
+  .tcard{margin-left:0;background:#F2F4F7;border-radius:12px;padding:14px 12px 12px;margin-bottom:12px;}
+  .tcard.off{opacity:.55;filter:grayscale(.4);}
+  .tcard .tc-h{display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+  .tcard .tc-t{font-size:14px;font-weight:600;color:#11141A;}
+  .tcard .tc-ck{flex:0 0 auto;width:18px;height:18px;border-radius:50%;border:1px solid #C2C4CC;background:#fff;color:transparent;display:flex;align-items:center;justify-content:center;transition:.15s;} .tcard .tc-ck svg{width:10px;height:10px;}
+  .tcard .tc-ck.on{border-color:transparent;background:linear-gradient(135deg,#443C4D 0%,#120A1A 100%);color:#fff;}
+  .tcard .tc-route{display:flex;align-items:center;gap:8px;margin-top:12px;} .tcard .tc-route .cty{font-size:17px;font-weight:800;color:#171A26;} .tcard .tc-route .arr{color:var(--ink-3);font-size:14px;}
+  .tcard .tc-info{font-size:12px;line-height:1.6;color:#4F5259;margin-top:5px;}
+  /* 机票卡:航站楼–航站楼 + 日期 + 时刻 并列一行 */
+  .tcard .tc-fline{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:12px;} .tcard .tc-fline .tc-ap{font-size:16px;font-weight:800;color:#171A26;} .tcard .tc-fline .tc-dash{color:var(--ink-3);font-weight:700;} .tcard .tc-fline .tc-date{font-size:12px;color:#8D9199;margin-left:4px;} .tcard .tc-fline .tc-time{font-size:12px;color:#4F5259;font-weight:600;}
+  /* 第2操作行:退改签(可点)+ 换票或舱位 */
+  .tcard .tc-optrow{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+  .tcard .tc-refund{font-size:12px;color:#4F5259;font-weight:600;cursor:pointer;} .tcard .tc-refund .rf-arr{color:#B0B3BA;margin-left:1px;}
+  .tcard .tc-chg{font-size:12px;color:#828794;font-weight:600;cursor:pointer;white-space:nowrap;flex:0 0 auto;}
+  /* 价格 + 步进器 行 */
+  .tcard .tc-priceline{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+  .tcard .tc-price b{font-size:18px;font-weight:800;color:#FF0400;font-family:var(--font);} .tcard .tc-price .per{font-size:11px;color:var(--ink-3);font-weight:600;margin-left:3px;}
+  .tcard .tc-step{display:inline-flex;align-items:center;border:1px solid #DCDEE5;border-radius:8px;overflow:hidden;} .tcard .tc-step span{width:30px;height:28px;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;user-select:none;} .tcard .tc-step .st-mi,.tcard .tc-step .st-pl{color:#4F5259;background:#fff;} .tcard .tc-step .st-mi:active,.tcard .tc-step .st-pl:active{background:#F2F3F5;} .tcard .tc-step .st-n{width:34px;font-size:14px;font-weight:700;color:#171A26;border-left:1px solid #DCDEE5;border-right:1px solid #DCDEE5;}
+  /* 酒店卡(无图无评分) */
+  .tcard .tc-hname2{font-size:15px;font-weight:800;color:#171A26;margin-top:12px;}
+  .tcard .tc-roomrow{display:flex;align-items:flex-start;justify-content:space-between;margin-top:7px;gap:8px;} .tcard .tc-room{font-size:12px;line-height:1.6;color:#4F5259;flex:1;min-width:0;}
+  .tcard .tc-cancel2{display:flex;align-items:center;gap:6px;margin-top:8px;} .tcard .tc-cancel2 .cc-tag{flex:0 0 auto;font-size:10px;font-weight:700;color:#0A6CFF;background:#EAF2FF;border-radius:4px;padding:2px 6px;} .tcard .tc-cancel2 .cc-tx{font-size:12px;color:#0A6CFF;font-weight:600;}
+  /* 已选合计条 + 主按钮 */
+  .tc-sum{display:flex;align-items:center;justify-content:space-between;margin:2px 0 12px;} .tc-sum-l{font-size:14px;color:#171A26;} .tc-sum-r{font-size:11px;font-weight:800;color:#4F5259;} .tc-sum-r .cur{color:#FF0400;font-size:12px;margin-left:6px;} .tc-sum-r b{color:#FF0400;font-size:17px;font-family:var(--font);margin-left:1px;}
+
   /* 门票 人×景点 网格(每景点头+人chip逐人可减) */
   .bk .tkspot{padding:11px 12px;border-bottom:1px solid #EADAFB;} .bk .tkspot:last-child{border-bottom:none;}
   .bk .tkspot .tks-h{display:flex;align-items:flex-start;gap:10px;}
@@ -723,6 +759,20 @@
   .authcard .auth-row .v.r{flex:1;text-align:right;font-size:12.5px;font-weight:600;color:var(--ink);}
   .authcard .auth-amt .v.r b{font-size:17px;font-weight:800;color:var(--jd-red);}
   .authcard .auth-proto{font-size:10.5px;line-height:1.6;color:var(--ink-3);} .authcard .auth-proto .lk{color:var(--indigo);}
+  /* ===== 授权页(设计稿 node 1114:15953):机酒明细汇总卡 + 京东AI付授权卡 ===== */
+  .asum{margin-left:0;background:#F5F6FA;border-radius:14px;padding:4px 14px;margin-bottom:10px;}
+  .asum-grp{padding:14px 0;border-bottom:1px solid #EAEBEF;} .asum-grp:last-child{border-bottom:none;}
+  .asum-h{display:flex;align-items:center;justify-content:space-between;} .asum-h .an{font-size:14px;font-weight:700;color:#171A26;} .asum-h .av{font-size:14px;font-weight:800;color:#171A26;} .asum-h .av .ac{font-size:10px;color:var(--ink-3);margin-left:2px;}
+  .asum-sub{font-size:12px;color:#8D9199;margin-top:7px;line-height:1.5;}
+  .asum-p{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#4F5259;margin-top:7px;} .asum-p span:last-child{color:#8D9199;}
+  .asum-fare{display:flex;align-items:baseline;gap:8px;margin-top:7px;font-size:12px;} .asum-fare .fl-lb{flex:0 0 auto;width:30px;color:#4F5259;font-weight:600;} .asum-fare .fl-cells{flex:1;min-width:0;color:#8D9199;} .asum-fare .fl-tot{flex:0 0 auto;color:#4F5259;font-weight:600;}
+  .asum-total{display:flex;align-items:center;justify-content:space-between;padding:13px 0 4px;margin-top:6px;border-top:1px solid #EAEBEF;} .asum-total .at-k{font-size:13px;font-weight:700;color:#171A26;} .asum-total .at-v{font-size:18px;font-weight:800;color:#FF0400;font-family:var(--font);} .asum-total .at-v .cur{font-size:13px;}
+  .jdpay{margin-left:0;background:#fff;border:1px solid #F0EDF2;border-radius:14px;padding:14px;margin-bottom:10px;}
+  .jdpay-h{display:flex;align-items:center;gap:7px;padding-bottom:12px;border-bottom:1px solid #F2F3F5;} .jdpay-h .jp-logo{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#FF3B3B,#E60012);color:#fff;display:flex;align-items:center;justify-content:center;} .jdpay-h .jp-logo svg{width:14px;height:14px;} .jdpay-h .jp-t{font-size:14px;font-weight:800;color:#171A26;flex:1;} .jdpay-h .jp-tag{font-size:11px;font-weight:700;color:#FF4D82;}
+  .jdpay-lead{font-size:13px;font-weight:700;color:#171A26;padding:12px 0;}
+  .jdpay-row{display:flex;align-items:center;gap:8px;padding:7px 0;font-size:12.5px;} .jdpay-row .jr-ck{width:15px;height:15px;flex:0 0 auto;border-radius:50%;background:#E8E9ED;color:#9195A0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;} .jdpay-row .jr-k{color:#8D9199;flex:0 0 auto;width:82px;} .jdpay-row .jr-v{color:#171A26;font-weight:600;flex:1;}
+  .jdpay-total{display:flex;align-items:center;justify-content:space-between;padding:12px 0 6px;margin-top:6px;border-top:1px solid #F2F3F5;} .jdpay-total .jt-k{font-size:13px;color:#171A26;font-weight:600;} .jdpay-total .jt-v{font-size:19px;font-weight:800;color:#FF0400;font-family:var(--font);} .jdpay-total .jt-v .cur{font-size:13px;}
+  .jdpay-proto{font-size:10.5px;line-height:1.6;color:#B0B3BA;margin-top:8px;} .jdpay-proto .lk{color:#8D9199;}
   .paydone{margin-left:0;text-align:center;padding:6px 0;} .paydone .ring{width:54px;height:54px;border-radius:50%;background:var(--indigo-soft);color:var(--indigo);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;} .paydone .ring svg{width:28px;height:28px;} .paydone .t{font-size:15px;font-weight:800;} .paydone .s{font-size:11px;color:var(--ink-2);margin-top:3px;}
   /* 订单卡(支付后逐个出) */
   /* 订单卡:多行结构(对齐设计稿762:29551 design-context:卡底#F2F4F7/城市对16px/时刻航班行14px灰/右下共计红价18px) */
@@ -907,6 +957,19 @@
   .pax .prow.empty{cursor:pointer;} .pax .prow.empty .info .nm{color:var(--ink-3);font-weight:600;}
   .pax .prow .av.wait{background:#F0F1F5;color:var(--ink-3);}
   .pax .prow .fillbtn{font-size:10px;font-weight:700;color:var(--indigo);background:var(--indigo-soft);padding:3px 9px;border-radius:6px;}
+  /* ===== 预订人信息(设计稿 node 1114:15710):标题在卡外+白卡每人行+手动新增/扫描证件 ===== */
+  .paxwrap{margin-left:0;margin-bottom:9px;}
+  .paxhd{margin-bottom:12px;} .paxhd-t{font-size:16px;font-weight:700;color:#171A26;line-height:1.5;} .paxhd-d{font-size:13px;color:#3D414D;line-height:1.6;margin-top:2px;}
+  .paxwrap .pax{background:#fff;border:1px solid #F0EDF2;border-radius:16px;padding:4px 14px;overflow:visible;margin-bottom:0;}
+  .paxwrap .pax-pick{display:flex;align-items:center;justify-content:flex-end;gap:2px;padding:11px 0 3px;font-size:12.5px;font-weight:700;color:var(--indigo);cursor:pointer;} .paxwrap .pax-pick .pk-arr{font-size:14px;}
+  .paxwrap .prow{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #F2F3F5;} .paxwrap .prow:last-child{border-bottom:none;}
+  .paxwrap .prow .pdel{flex:0 0 auto;width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:#C2C4CC;cursor:pointer;} .paxwrap .prow .pdel svg{width:18px;height:18px;} .paxwrap .prow .pdel:not(.dim):active{color:var(--jd-red);} .paxwrap .prow .pdel.dim{opacity:.45;cursor:default;}
+  .paxwrap .prow .info{flex:1;min-width:0;} .paxwrap .prow .info .nm{font-size:14px;font-weight:600;color:#120A1A;display:flex;align-items:center;gap:6px;} .paxwrap .prow .info .nm .ph{font-weight:600;} .paxwrap .prow .info .id{font-size:12px;color:#8D9199;margin-top:5px;}
+  .paxwrap .prow .info .nm .todo{font-size:10px;font-weight:700;color:var(--jd-red);background:#FFECEC;border-radius:4px;padding:2px 6px;}
+  .paxwrap .prow.empty .info .nm{color:var(--ink-2);}
+  .paxwrap .prow .edit{flex:0 0 auto;width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:#8D9199;cursor:pointer;} .paxwrap .prow .edit svg{width:16px;height:16px;}
+  .paxwrap .prow .fillbtn{flex:0 0 auto;display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--indigo);background:var(--indigo-soft);padding:6px 12px;border-radius:6px;cursor:pointer;} .paxwrap .prow .fillbtn svg{width:13px;height:13px;}
+  .paxwrap .pform{padding:2px 0 12px;border-bottom:1px solid #F2F3F5;}
   .pax .pform{padding:2px 13px 12px;border-bottom:1px solid var(--line);}
   .pax .pcam{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;margin-bottom:9px;border:1.3px dashed rgba(126,23,230,.4);border-radius:10px;font-size:11px;font-weight:700;color:var(--indigo);background:var(--indigo-soft);cursor:pointer;} .pax .pcam svg{width:15px;height:15px;}
   .pax .pfield{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);} .pax .pfield:last-child{border-bottom:none;}
@@ -1777,6 +1840,24 @@ async function playThink(lines, gap=850){
   await sleep(500);
 }
 
+// 点「去预订」的思考链:为你挑合适的机票票价 + 酒店房型
+async function playBookingThink(){
+  const f=CAT.flights[S.flight], h=CAT.hotels[S.hotel];
+  const lines=[
+    {i:'map',t:`比对 <b>${f.name}</b> 往返票价档位，锁定<b>出行时段合适</b>的经济舱`},
+    {i:'spot',t:`匹配 <b>${h.name}</b> 房型，按 2 大 1 小选<b>家庭房</b>`},
+  ];
+  const rows=lines.map(l=>`<div class="think-line"><span class="ti">${IC[l.i]||''}</span><div>${l.t}</div></div>`).join('');
+  const node=el(`<div class="think"><div class="think-h"><span class="spin"></span><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="tt">正在思考，为你选择合适的机票票价和酒店房型……</span><span class="chev">▼</span></div><div class="think-body">${rows}</div></div>`);
+  addMsg(node);
+  const lineEls=node.querySelectorAll('.think-line');
+  for(let i=0;i<lineEls.length;i++){ lineEls[i].classList.add('show'); scrollDown(); await sleep(850); }
+  node.querySelector('.tt').textContent='已为你选好机票票价和酒店房型';
+  await sleep(700);
+  node.classList.add('done'); node.onclick=()=>node.classList.toggle('done');
+  await sleep(400);
+}
+
 /* ============ 场景切换 ============ */
 const sceneBtn=document.getElementById('sceneBtn'), sceneMask=document.getElementById('sceneMask'), sceneMenu=document.getElementById('sceneMenu');
 function openScene(){ sceneMask.classList.add('on'); sceneMenu.classList.add('on'); }
@@ -2053,8 +2134,8 @@ function renderOrders(){
   const aiSummary=`<div class="ai-list">
     <div class="ai-row"><span class="ck">✓</span><span class="rtx">机票 往返 <b>¥${c.F}</b><span class="paid">已支付</span></span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
     <div class="ai-row"><span class="ck">✓</span><span class="rtx">酒店 ${h.name} <b>¥${c.H}</b><span class="paid">已支付</span></span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
-    <div class="ai-row"><span class="ck">✓</span><span class="rtx">景点 大唐不夜城等 <b>¥${c.T}</b><span class="paid">已支付</span></span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
-    <div class="ai-row"><span class="ck">✓</span><span class="rtx">机票/酒店/景点全部支付完成，总额 <b>¥${c.pay}</b></span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+    ${c.mtx.length?`<div class="ai-row"><span class="ck">✓</span><span class="rtx">景点 大唐不夜城等 <b>¥${c.T}</b><span class="paid">已支付</span></span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>`:`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机酒已支付,总额 <b>¥${c.payNow}</b></span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>`}
+    ${c.mtx.length?`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机票/酒店/景点全部支付完成，总额 <b>¥${c.pay}</b></span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>`:`<div class="ai-row"><span class="ck star">✦</span><span class="rtx">景点门票可随时在行程日历里预订</span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>`}
     <div class="ai-row"><span class="ck">✓</span><span class="rtx">行程已加入行程日历</span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
     <div class="ai-row"><span class="ck star">✦</span><span class="rtx">搞定！快来看看吧</span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></div>
   </div><div class="ai-lead">西安行程中的订单都在这里了～</div>`;
@@ -2191,9 +2272,9 @@ const CAT={
     mu:{co:'MU',color:'#1D4FA0',name:'东方航空',plane:'空客A321(中)',meal:'有餐食',out:{no:'MU2103',dep:'07:15',depAp:'北京大兴机场',arr:'09:30',arrAp:'西安咸阳机场 T3',dur:'2h15m'},back:{no:'MU2104',dep:'20:10',depAp:'西安咸阳机场 T3',arr:'22:40',arrAp:'北京大兴机场',dur:'2h30m'},price:1420,tag:'最早到达',tagType:'cheap',tagGo:'最早到达',tagBack:'玩满一天'}
   },
   hotels:{
-    atour:{name:'亚朵·钟楼店',lv:'高档',score:'4.9分 超棒',district:'碑林区',zone:'距钟楼320米',price:528,near:'钟楼',img:'atour.jpg',tags:['亲子友好','含双早','近地铁2号线'],reason:'带娃首选 · 步行可逛钟鼓楼回民街'},
-    juzi:{name:'桔子水晶·南门',lv:'高档',score:'4.8分 超棒',district:'碑林区',zone:'距城墙约200米',price:486,near:'南门',img:'juzi.jpg',tags:['近城墙','含双早','大床/双床可选'],reason:'紧邻城墙南门 · Day3 出行更顺'},
-    hilton:{name:'希尔顿欢朋·大雁塔',lv:'高档',score:'4.7分 超棒',district:'雁塔区',zone:'距大雁塔约600米',price:568,near:'大雁塔',img:'hilton.jpg',tags:['近大雁塔','含双早','有泳池'],reason:'挨着大唐不夜城 · 带娃夜游最近'}
+    atour:{name:'亚朵·钟楼店',lv:'高档',score:'4.9分 超棒',district:'碑林区',zone:'距钟楼320米',price:528,near:'钟楼',img:'atour.jpg',bed:'1张1.8米大床+1张0.8米小床',freeStay:'2成人+1儿童（免费住）',tags:['亲子友好','含双早','近地铁2号线'],reason:'带娃首选 · 步行可逛钟鼓楼回民街'},
+    juzi:{name:'桔子水晶·南门',lv:'高档',score:'4.8分 超棒',district:'碑林区',zone:'距城墙约200米',price:486,near:'南门',img:'juzi.jpg',bed:'1张1.8米大床',freeStay:'2成人+1儿童（免费住）',tags:['近城墙','含双早','大床/双床可选'],reason:'紧邻城墙南门 · Day3 出行更顺'},
+    hilton:{name:'希尔顿欢朋·大雁塔',lv:'高档',score:'4.7分 超棒',district:'雁塔区',zone:'距大雁塔约600米',price:568,near:'大雁塔',img:'hilton.jpg',bed:'2张1.35米双床',freeStay:'2成人+1儿童（免费住）',tags:['近大雁塔','含双早','有泳池'],reason:'挨着大唐不夜城 · 带娃夜游最近'}
   },
   spots:{
     bmy:{name:'秦始皇兵马俑',lv:'5A',resv:true,open:'08:30-18:00',play:'建议游玩3-4h',score:'4.7分 超赞',zone:'临潼区',price:120,img:'bingmayong.jpg',day:2,tm:'10:00',sub:'请讲解员带娃看故事 · 主玩2小时',tip:{t:'馆内<b>人多闷热</b>，带小电扇补水喷雾；请个讲解娃才看得进',w:1},color:'#C25A2E',pin:{l:'78%',t:'27%',x:250,y:52},tags:['世界遗产','必打卡','可租讲解'],reason:'西安必去 · 娃看真人比例陶俑超震撼'},
@@ -2202,13 +2283,14 @@ const CAT={
     hqc:{name:'华清宫',lv:'5A',resv:true,open:'08:00-18:00',play:'建议游玩2-3h',score:'4.5分 超赞',zone:'临潼区',price:120,img:'bingmayong.jpg',day:2,tm:'14:00',sub:'长恨歌故地 · 与兵马俑同在临潼顺路',tip:{t:'和兵马俑<b>同在临潼</b>，一天连着玩不折返；夏天带娃注意遮阳',w:0},color:'#C25A2E',pin:{l:'88%',t:'46%',x:282,y:87},tags:['皇家园林','顺路临潼','温泉故地'],reason:'兵马俑同一天顺路 · 娃看长恨歌故事'},
     dyt:{name:'大雁塔·大慈恩寺',lv:'5A',open:'08:00-17:00',play:'建议游玩1-2h',score:'4.6分 超赞',zone:'雁塔区',price:50,img:'datang.jpg',day:1,tm:'17:30',sub:'与大唐不夜城相邻 · 北广场音乐喷泉',tip:{t:'紧挨<b>大唐不夜城</b>，傍晚看塔+晚上看喷泉一站连玩',w:0},color:'var(--indigo)',pin:{l:'34%',t:'22%',x:109,y:42},tags:['地标古塔','邻不夜城','音乐喷泉'],reason:'挨着大唐不夜城 · 傍晚顺路打卡'},
     slb:{name:'陕西历史博物馆',lv:'5A',resv:true,open:'09:00-17:30',play:'建议游玩2-3h',score:'4.8分 超赞',zone:'雁塔区',price:0,img:'chengqiang.jpg',day:3,tm:'09:00',sub:'室内·娃看国宝 · 需提前预约',tip:{t:'<b>室内空调</b>雨天暴晒都适合；免费但要<b>提前预约</b>',w:1},color:'#12A150',pin:{l:'52%',t:'88%',x:166,y:167},tags:['免费·预约','室内避暑','国宝云集'],reason:'室内不晒不淋 · 娃看真国宝长见识'},
-    yxf:{name:'永兴坊',lv:'4A',open:'10:00-22:00',play:'建议游玩1h',score:'4.4分 超棒',zone:'新城区',price:0,img:'datang.jpg',day:1,tm:'12:00',sub:'摔碗酒+非遗小吃 · 城内顺路',tip:{t:'城内小吃街,<b>娃能吃的清淡面点</b>也多,中午顺路解决吃饭',w:0},color:'var(--indigo)',pin:{l:'42%',t:'62%',x:134,y:118},tags:['免费','非遗美食','城内顺路'],reason:'城内美食街 · 中午顺路带娃尝鲜'}
+    yxf:{name:'永兴坊',lv:'4A',open:'10:00-22:00',play:'建议游玩1h',score:'4.4分 超棒',zone:'新城区',price:0,img:'datang.jpg',day:1,tm:'12:00',sub:'摔碗酒+非遗小吃 · 城内顺路',tip:{t:'城内小吃街,<b>娃能吃的清淡面点</b>也多,中午顺路解决吃饭',w:0},color:'var(--indigo)',pin:{l:'42%',t:'62%',x:134,y:118},tags:['免费','非遗美食','城内顺路'],reason:'城内美食街 · 中午顺路带娃尝鲜'},
+    zgl:{name:'钟鼓楼',lv:'4A',open:'08:30-21:00',play:'建议游玩1h',score:'4.5分 超赞',zone:'碑林区',price:0,img:'zhonglou.jpg',day:1,tm:'16:00',sub:'酒店步行8分钟 · 距回民街100米，适合边走边吃',tip:{t:'回民街<b>清真小吃偏重口</b>，给娃备点清淡的，肠胃药随身',w:1},color:'var(--indigo)',pin:{l:'29%',t:'73%',x:92,y:138},tags:['免费','近酒店','邻回民街'],reason:'酒店步行8分钟 · 边逛边吃回民街'}
   },
-  // 固定顺路点(酒店旁,始终在Day1,不在选品/不单收门票)
-  fixed:{zgl:{name:'钟鼓楼',day:1,tm:'16:00',open:'08:30-21:00',play:'建议游玩1h',img:'zhonglou.jpg',sub:'酒店步行8分钟 · 距回民街100米，适合边走边吃',tip:{t:'回民街<b>清真小吃偏重口</b>，给娃备点清淡的，肠胃药随身',w:1},color:'var(--indigo)',pin:{l:'29%',t:'73%',x:92,y:138}}}
+  // (钟鼓楼原为固定顺路点,现并入 spots 作为可增删景点;fixed 保留空占位以防旧引用)
+  fixed:{}
 };
 // 全局状态: 用户的选择,前面选什么后面全联动
-const S={ flight:'hu', hotel:'atour', spots:['bmy','cq','dt'], adults:2, kids:1, travelers:[], hotelConfirmed:false, cabin:'y', room:'fam', ticketSkip:[], buyFlight:true, buyHotel:true, tkOff:{} };
+const S={ flight:'hu', hotel:'atour', spots:['bmy','cq','dt','zgl'], adults:2, kids:1, travelers:[], hotelConfirmed:false, cabin:'y', room:'fam', ticketSkip:[], buyGo:true, buyBack:true, buyHotel:true, flightN:0, hotelN:1, tkOff:{} };
 // 偏好→机酒默认联动(真偏好驱动推荐):出行侧重定机票,住宿档次定酒店
 function applyPrefToPicks(){
   // 出行侧重 → 机票默认
@@ -2241,6 +2323,8 @@ function ticketTypeFor(t, spot){
 }
 // 门票矩阵: 每付费景点 × 每个"未被移出该景点"的出行人。S.tkOff[spotKey]=[被移出的人id]
 function ticketMatrix(){
+  // 预订环节分离:机酒下单阶段(bookingPhase='machine')门票不参与,矩阵为空 → 机酒链路金额/授权/支付都不含门票
+  if(S.bookingPhase==='machine') return [];
   const skip=S.ticketSkip||[], off=S.tkOff||{};
   const paidSpots=S.spots.filter(k=>!skip.includes(k) && CAT.spots[k].price>0);
   return paidSpots.map(k=>{
@@ -2256,8 +2340,17 @@ function calcPrices(){
   const fp=CAT.flights[S.flight].price + CABINS[S.cabin].add;   // 机票单人价含舱位加价
   const hp=CAT.hotels[S.hotel].price + ROOMS[S.room].add;       // 酒店每晚价=基础(随酒店)+房型差价
   const skip=S.ticketSkip||[];
-  // 三品类开关: 机票/酒店整卡可取消(不下单则=0), 门票按人×景点矩阵逐人算
-  const F=S.buyFlight? fp*p : 0, H=S.buyHotel? hp*2 : 0;         // 酒店2晚(3天2晚:8/20出发8/22返)
+  // 三品类开关: 机票去/返各自可取消, 酒店整卡可取消, 门票按人×景点矩阵逐人算
+  const fpGo=Math.round(fp*0.46), fpBack=fp-fpGo;          // 单人去/返程票价(与卡片展示一致)
+  const nFlight=S.flightN||p;                              // 机票人数(默认=出行人数)
+  const nHotel=S.hotelN||1;                                // 酒店间数
+  const Fgo=S.buyGo? fpGo*nFlight : 0, Fback=S.buyBack? fpBack*nFlight : 0;
+  // 机建+燃油(成人¥50+¥120,儿童¥25+¥60),每段每人一次;计入即时应付,授权页明细逐项展示
+  const nAdult=S.adults, nKid=S.kids;
+  const taxPerAdult=170, taxPerKid=85;                          // 机建+燃油合计/人
+  const segCount=(S.buyGo?1:0)+(S.buyBack?1:0);
+  const flightTax=segCount*(taxPerAdult*nAdult+taxPerKid*nKid);
+  const F=Fgo+Fback+flightTax, H=S.buyHotel? hp*2*nHotel : 0;   // 机票含税 + 酒店2晚×间数
   // 门票:按 人×景点 矩阵求和(免票=¥0 但仍占位),不再全员统一全价
   const mtx=ticketMatrix();
   const T=mtx.reduce((s,m)=>s+m.sub,0);
@@ -2268,7 +2361,7 @@ function calcPrices(){
   const orig=F+H+T, cut=machine>0? Math.floor(orig/1000)*100 : 0; // 授权总额度覆盖全程(含门票);无机酒则无立减
   const pay=orig-cut;                                           // 授权总额度
   const payNow=Math.max(0, machine-cut);                        // 即时支付(机票+酒店,立减全给这部分)
-  return {p,fp,hp,F,H,tPer,T,mtx,orig,cut,pay, payNow, buyFlight:S.buyFlight, buyHotel:S.buyHotel};
+  return {p,fp,hp,fpGo,fpBack,nFlight,nHotel,F,Fgo,Fback,flightTax,taxPerAdult,taxPerKid,H,tPer,T,mtx,orig,cut,pay, payNow, buyGo:S.buyGo, buyBack:S.buyBack, buyFlight:(S.buyGo||S.buyBack), buyHotel:S.buyHotel};
 }
 // 选品汇总条HTML(含人均价格实时计算)
 function selbarHTML(){
@@ -2375,12 +2468,10 @@ function buildDays(){
   // 每天景点按游玩时间(tm)升序排,保证顺序合理(如大雁塔17:30排在大唐不夜城19:30前)
   [1,2,3].forEach(d=>daySpots[d].sort((a,b)=>(a.s.tm||'').localeCompare(b.s.tm||'')));
   const spotNode=({k,s})=>({tm:s.tm,nm:s.name,pr:s.price?`¥${s.price}/人`:'免费',sub:s.sub,tip:s.tip,done:0,spotKey:k});
-  // Day1: 抵达 + 入住 + 钟鼓楼(固定顺路点)与当天景点一起按时间排序
-  const z=CAT.fixed.zgl;
-  const zNode={done:0,tm:z.tm,nm:z.name,pr:'',sub:z.sub,tip:z.tip,fixedKey:'zgl'};
-  const d1spots=[zNode, ...daySpots[1].map(spotNode)].sort((a,b)=>(a.tm||'').localeCompare(b.tm||''));
+  // Day1: 抵达 + 入住 + 当天景点(钟鼓楼已并入 spots,作为普通可增删景点按时间排序)
+  const d1spots=daySpots[1].map(spotNode).sort((a,b)=>(a.tm||'').localeCompare(b.tm||''));
   const d1=[
-    {done:1,tm:arr,nm:`抵达西安 · ${f.out.arrAp}`,pr:'',sub:`${f.out.dep} 北京T2 起飞 · ${arr} 落地咸阳机场 · 打车约30分到酒店`},
+    {done:1,tm:arr,nm:`抵达西安 · ${f.out.arrAp}`,pr:'',sub:`${f.out.dep} 北京T2 起飞 · ${arr} 落地咸阳机场`},
     {done:1,tm:checkin,nm:`${h.name} 入住`,pr:`¥${h.price}/晚`,sub:`家庭房 · ${h.zone}`,tip:{t:'入住后建议<b>让娃午休1小时</b>，傍晚再出门不累',w:0}},
     ...d1spots
   ];
@@ -2542,8 +2633,7 @@ async function runMidRain(){
 /* ===== TravelMap 适配(全局) ===== */
 // ===== TravelMap 适配:把 demo 点位喂给组件库,带逐点揭示动效 =====
 function tmPoints(day){
-    const z=CAT.fixed.zgl;
-    const all=[{...z,day:1}, ...S.spots.map(k=>({...CAT.spots[k]}))];
+    const all=[...S.spots.map(k=>({...CAT.spots[k]}))];   // 钟鼓楼已并入 S.spots,无需再单独 prepend
     const showDays=day?[day]:[1,2,3];
     const pts=[];
     showDays.forEach(d=>{
@@ -2715,8 +2805,7 @@ async function genItinerary(){
     sfx=sfx||'';                              // marker id后缀,避免多份地图id冲突
     let pins=`<div class="pin hotel" style="left:50%;top:53%"><div class="hbub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 9h4a1 1 0 011 1v11"/><path d="M8 8h3M8 12h3"/></svg>${CAT.hotels[S.hotel].name}</div><div class="tip" style="background:var(--ink)"></div></div>`;
     let paths='';
-    const z=CAT.fixed.zgl;
-    const allPts=[{...z,day:1}, ...S.spots.map(k=>({...CAT.spots[k]}))];
+    const allPts=[...S.spots.map(k=>({...CAT.spots[k]}))];   // 钟鼓楼已并入 S.spots
     const showDays = day?[day]:[1,2,3];       // 联动:只显指定天;不传显全部
     const xy=p=>({x:parseFloat(p.pin.l)/100*320,y:parseFloat(p.pin.t)/100*190});
     const seg=(a,b,color,d)=>{
@@ -2816,7 +2905,7 @@ async function genItinerary(){
       return `<div class="tl-node"><div class="dot d-${ty}">${catIcon[ty]}</div>${head}<div class="it"><div class="nnm">${it.nm}</div><div class="nsub">${subInfo(it)}</div>${tip}</div>${mv}</div>`;
     }).join('');
     const unpicked=Object.keys(CAT.spots).filter(k=>!S.spots.includes(k));
-    const addBtn = unpicked.length?`<div class="addspot" id="addSpotBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 013 3v5a3 3 0 01-6 0V6a3 3 0 013-3z"/><path d="M6 11a6 6 0 0012 0M12 17v3"/></svg>想加或换景点？跟我说一声</div>`:'';
+    const addBtn = unpicked.length?`<div class="addspot" id="addSpotBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 013 3v5a3 3 0 01-6 0V6a3 3 0 013-3z"/><path d="M6 11a6 6 0 0012 0M12 17v3"/></svg>想增加景点，和我说一声</div>`:'';
     return `<div class="tl">${rows}</div>${addBtn}`;
   }
   function refreshDayTabLabels(){
@@ -2848,13 +2937,12 @@ async function genItinerary(){
   }
   function appendNewPlan(){
     const id='np'+(npCount++);                 // 唯一后缀
-    const days=buildDays();
-    const dsub={1:'城内',2:days[2].length>1?'兵马俑':'自由',3:'城墙·返程'};
+    // 折叠卡日期选择对齐首次生成:天气图标+日期(dwx/ddate),且放在地图上方
     const node=addMsg(el(`<div class="newplan open" data-np="${id}">
       <div class="np-h"><span class="bar"></span><span class="t">📍 最新行程已更新 <span>· 共 ${S.spots.length} 个景点</span></span><span class="chev">▾</span></div>
       <div class="np-body"><div class="np-inner">
+        <div class="daytab np-tab"><div class="d on" data-d="1"><span class="wx">${dwx[1]}</span>Day1<span class="s">${ddate[1]}</span></div><div class="d" data-d="2"><span class="wx">${dwx[2]}</span>Day2<span class="s">${ddate[2]}</span></div><div class="d" data-d="3"><span class="wx">${dwx[3]}</span>Day3<span class="s">${ddate[3]}</span></div></div>
         <div class="map tm-wrap np-map" id="npMap-${id}"></div>
-        <div class="daytab np-tab"><div class="d on" data-d="1">Day1<span class="s">${dsub[1]}</span></div><div class="d" data-d="2">Day2<span class="s">${dsub[2]}</span></div><div class="d" data-d="3">Day3<span class="s">${dsub[3]}</span></div></div>
         <div class="tl np-day"><\/div>
       </div></div></div>`));
     const box=node.querySelector('.newplan');
@@ -2944,7 +3032,8 @@ async function genItinerary(){
     d.onclick=()=>{ dayTab.querySelectorAll('.d').forEach(x=>x.classList.remove('on')); d.classList.add('on'); curDay=+d.dataset.day; const mb=document.getElementById('mapBox'); if(mb) tmInto(mb,curDay,false); document.getElementById('dayBody').innerHTML=renderDay(curDay); bindDayEdit(); };
   });
   bindDayEdit();
-  await playAI('行程满意就下一步；也可以先把行程<span class="em">分享给朋友</span>看看 👇');
+  S.tripSynced=true;                              // 行程明细已进「首页-行程日历」(日历读 buildDays/S,天然同步)
+  await playAI('已将<span class="em">行程明细</span>添加到「首页 - 行程日历」中，方便你随时查看。你可继续<b>分享</b>或<b>去预订</b> 👇');
   await zeroActBar('去预订',
     async ()=>{ await playUser('去预订'); await doBooking(); },
     '分享行程');
@@ -2952,8 +3041,11 @@ async function genItinerary(){
 
 // 预订清单 —— 先选品,再确认出行人;金额全按选择计算
 async function doBooking(){
+  S.bookingPhase='machine';                    // 机酒下单阶段:门票不参与金额/授权/支付
   const c=calcPrices(), f=CAT.flights[S.flight], h=CAT.hotels[S.hotel];
-  await playAI(`行程 ok，先订 <span class="em">机票和酒店</span> 吧——选好后确认出行人即可下单 👇`, 700);
+  // 点「去预订」先出思考链(为你挑合适的机票票价+酒店房型),结束后引导确认机酒明细
+  await playBookingThink();
+  await playAI(`我先和你确认<span class="em">机票和酒店</span>的预订明细，确保行程不落空，之后你可再选择继续预订景点 👇`, 600);
 
   // 出行人表单数据: 从全局名单 TRAVELERS 派生(唯一真源),默认成人已填、儿童待填(可拍证自动填)
   const paxNeedN=pax();                    // 需要的出行人数
@@ -2967,65 +3059,69 @@ async function doBooking(){
   const shield='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>';
   function bookInner(){
     const c=calcPrices(), f=CAT.flights[S.flight], h=CAT.hotels[S.hotel];
-    const skip=S.ticketSkip||[];
-    // 机票:去程/返程两张详情卡(对齐设计稿762:29072:时刻大字+航站楼+行李/改签+红价+最低价标)
-    const goPr=Math.round(c.fp*0.46), backPr=c.fp-goPr;
-    const flSeg=(seg,dir,date,price,low)=>`<div class="flcard"><div class="fl-h"><span class="dir">${dir}</span><span class="date">${date}</span>${low?'<span class="low">最低价</span>':''}</div>
-      <div class="fl-body"><div class="fl-t"><div class="tm">${seg.dep}</div><div class="ap">${seg.depAp}</div></div>
-        <div class="fl-mid"><div class="dur">${seg.dur}</div><div class="line"></div><div class="no">${f.name}${seg.no}</div></div>
-        <div class="fl-t"><div class="tm">${seg.arr}</div><div class="ap">${seg.arrAp}</div></div>
-        <div class="fl-price"><div class="pr">¥${price}<span class="per">/人</span></div><div class="cabin">${CABINS[S.cabin].name}</div></div></div>
-      <div class="fl-foot"><span class="lug">免费托运20kg</span><span>${f.plane} · ${f.meal}</span><span class="chgtxt">改签¥300起</span><span class="chg" data-opt="cabin">换舱位 ›</span></div></div>`;
-    const tkRows=S.spots.filter(k=>CAT.spots[k].price>0).map(k=>{
-      const s=CAT.spots[k];
-      const off=(S.tkOff&&S.tkOff[k])||[];
-      const all=activeTravelers();
-      const goers=all.filter(t=>!off.includes(t.id));
-      const spotOn=goers.length>0;
-      const sub=goers.reduce((sm,t)=>sm+ticketTypeFor(t,s).price,0);
-      const needResv=s.resv===true;
-      const tags=needResv?['随时退','需实名预约']:['随时退','无需换票','无需预约'];
-      // 每人一个 chip: 三态(全价选中 / 免票选中 / 已移出)
-      const chips=all.map(t=>{
-        const tt=ticketTypeFor(t,s); const removed=off.includes(t.id);
-        const cls=['tkp']; if(removed)cls.push('rm'); else if(tt.kind==='free')cls.push('free');
-        const price=tt.kind==='free'?`免票${tt.needResv?'·已约':''}`:`¥${tt.price}`;
-        const tick=removed?'＋':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
-        return `<span class="${cls.join(' ')}" data-sp="${k}" data-pid="${t.id}"><span class="tkp-ck">${tick}</span><span class="tkp-nm">${t.nm}</span><span class="tkp-pr">${price}</span></span>`;
-      }).join('');
-      const subTxt=spotOn?`¥${sub}`:`<span class="nosel">未选</span>`;
-      return `<div class="tkspot${spotOn?'':' off'}" data-tk="${k}"><div class="tks-h"><span class="tks-thumb" style="background-image:url(${img(s.img)})"></span><span class="tks-mid"><span class="tks-nm">${s.name}门票 ${needResv?'<i class="tks-rz">预约制</i>':''}</span><span class="tks-tags">${tags.map(x=>`<span>${x}</span>`).join('')}</span></span><span class="tks-amt">${subTxt}</span></div><div class="tks-pax">${chips}</div></div>`;
-    }).join('')||'<div class="br"><span class="x">未选门票</span></div>';
-    const fAmt=S.buyFlight?`<span class="amt">¥${c.F}</span>`:`<span class="amt"><span class="was">¥${c.fp*c.p}</span><span class="nosel">未选</span></span>`;
-    const hAmt=S.buyHotel?`<span class="amt">¥${c.H}</span>`:`<span class="amt"><span class="was">¥${c.hp*2}</span><span class="nosel">未选</span></span>`;
-    return `<div class="bk${S.buyFlight?'':' off'}"><div class="bh sw${S.buyFlight?'':' off'}" data-buy="flight"><span class="t">✈️ 往返机票 · ${S.adults}大${S.kids}小</span>${fAmt}<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span></div>
-      <div style="padding:0 10px 8px;">${flSeg(f.out,'去程 北京 → 西安','8月20日 周三',goPr,true)}${flSeg(f.back,'返程 西安 → 北京','8月22日 周五',backPr,false)}</div>
-      <div class="rule">${shield}<span><b>退改：</b>起飞前24h退票收5%，改签免手续费差价补</span></div></div>
-    <div class="bk${S.buyHotel?'':' off'}"><div class="bh sw${S.buyHotel?'':' off'}" data-buy="hotel"><span class="t">🏨 ${h.name} · 2晚</span>${hAmt}<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span></div>
-      <div class="hb"><div class="hbimg" style="background-image:url(${img(h.img)})"><span class="sc">${h.score}</span></div><div class="hbinfo"><div class="hbn">${h.name}</div><div class="hbd">📍 ${h.zone} · ${h.lv}</div><div class="hbt">${h.tags.slice(0,3).join(' · ')}</div></div></div>
-      <div class="br"><span class="x">8/20 入住 · 8/22 离店 · 含双早</span><span class="p">¥${c.hp}×2</span></div>
-      <div class="cfg"><span class="lb">房型</span><span class="vv">${ROOMS[S.room].name}</span><span class="chg" data-opt="room">换房型 ›</span></div>
-      <div class="rule">${shield}<span><b>退改：</b>入住前1天18:00前可免费取消，逾期收首晚房费</span></div></div>
-    <div class="bk"><div class="bh"><span class="t">🎫 景点门票 · 按人预订</span><span class="amt">¥${c.T}</span><span class="tk-hint">点头像可增减</span></div>
-      ${tkRows}
-      <div class="rule">${shield}<span><b>退改：</b>未使用可随时退，出行前1天23:00前免费退款</span></div></div>
-    <div class="total"><div class="r"><span>原价合计</span><span class="old">¥${c.orig}</span></div><div class="r"><span>京东旅行立减</span><span class="dc">-¥${c.cut}</span></div><div class="r m"><span class="l">应付总额</span><span class="big">¥${c.pay}</span></div></div>`;
+    const roomName=ROOMS[S.room].name.split(' · ')[0];       // 房型名(去掉床型后缀,床型另行展示)
+    const nF=c.nFlight, nH=c.nHotel;
+    const chk=(on)=>`<span class="tc-ck${on?' on':''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>`;
+    const stepper=(kind)=>`<span class="tc-step" data-step="${kind}"><span class="st-mi" data-d="-1">−</span><span class="st-n">${kind==='flight'?nF:nH}</span><span class="st-pl" data-d="1">＋</span></span>`;
+    // ① 去程/返程机票卡(各自独立勾选) ② 酒店卡
+    const flightCard=(seg,which,dirName,cityPair,date,price)=>{
+      const on = which==='go'? S.buyGo : S.buyBack;
+      const apShort=(ap)=>ap.replace('机场','').replace(/\s/g,'');   // 首都T2 / 咸阳T3
+      return `<div class="tcard${on?'':' off'}" data-buy="${which}">
+      <div class="tc-h"><span class="tc-t">${dirName}：${cityPair}</span>${chk(on)}</div>
+      <div class="tc-fline"><span class="tc-ap">${apShort(seg.depAp)}</span><span class="tc-dash">–</span><span class="tc-ap">${apShort(seg.arrAp)}</span><span class="tc-date">${date}</span><span class="tc-time">${seg.dep}–${seg.arr}</span></div>
+      <div class="tc-info">${f.name}${seg.no} · 免费行李20kg · ${f.meal}</div>
+      <div class="tc-optrow"><span class="tc-refund" data-refund="${which}">退改签 ¥${which==='go'?300:360}起 <span class="rf-arr">›</span></span><span class="tc-chg" data-opt="cabin">换票或舱位 ›</span></div>
+      <div class="tc-priceline"><span class="tc-price"><b>¥${price}</b><span class="per">/人</span></span>${stepper('flight')}</div>
+    </div>`;
+    };
+    const flightCards = flightCard(f.out,'go','去程机票','北京-西安','9月20日',c.fpGo)+flightCard(f.back,'back','返程机票','西安-北京','9月22日',c.fpBack);
+    // ③ 酒店卡:无图无评分;名称→入离→房型(床型+含早+免费入住人数,右侧换房型或报价)→取消政策(蓝)→价格
+    const hotelCardHtml=`<div class="tcard${S.buyHotel?'':' off'}" data-buy="hotel">
+      <div class="tc-h"><span class="tc-t">酒店 · 2晚</span>${chk(S.buyHotel)}</div>
+      <div class="tc-hname2">${h.name}</div>
+      <div class="tc-info">8月20日入住 · 8月22日离店 · 共2晚 · ${nH}间</div>
+      <div class="tc-roomrow"><span class="tc-room">${roomName} ${h.bed}，含双早，${h.freeStay}</span><span class="tc-chg" data-opt="room">换房型或报价 ›</span></div>
+      <div class="tc-cancel2"><span class="cc-tag">立即确认</span><span class="cc-tx">入住当天12点前可免费取消</span></div>
+      <div class="tc-priceline"><span class="tc-price"><b>¥${c.hp}</b><span class="per">/晚</span></span>${stepper('hotel')}</div>
+    </div>`;
+    const selTxt=[S.buyGo?'去程':'',S.buyBack?'返程':''].filter(Boolean).join('/');
+    const selAll=[selTxt?`机票${selTxt}`:'',S.buyHotel?`酒店${nH}间2晚`:''].filter(Boolean).join('、')||'未选';
+    return `${flightCards}${hotelCardHtml}
+    <div class="tc-sum"><span class="tc-sum-l">已选：${selAll}</span><span class="tc-sum-r">合计<span class="cur">¥</span><b>${c.payNow}</b></span></div>
+    <div class="bk-tknote"><span class="tkn-ic">🎫</span><span>景点门票可改期,先订机酒锁定行程 · 订完机酒我再帮你订景点</span></div>`;
   }
-  // ===== 出行人卡: 先声明节点(名单是机票/门票的依据),商品之后再插入DOM =====
-  const paxNode=el(`<div class="pax" id="paxBox"><div class="ph"><span class="bar"></span><span class="t">出行人 · ${S.adults}大${S.kids}小</span><span class="need" id="paxNeed">${needLeft?'还需完善 '+needLeft+' 人':'已完善'}</span></div>
-    <div id="paxList"></div>
+  // ===== 出行人卡: 先声明节点(名单是机票的依据),商品之后再插入DOM =====
+  // 预订人信息(用户细化):左=删除该行、右=编辑该行;头部「选择出行人清单 ›」;未填行红字「待补充」
+  const paxNode=el(`<div class="paxwrap">
+    <div class="paxhd"><div class="paxhd-t">👨‍👩‍👧 确定预订人信息</div><div class="paxhd-d">请查看您的预订人信息，也可从常用出行人中勾选添加～</div></div>
+    <div class="pax" id="paxBox"><div class="pax-pick" id="paxPick">选择出行人清单 <span class="pk-arr">›</span></div><div id="paxList"></div>
+    </div>
   </div>`);
-  const paxList=paxNode.querySelector('#paxList'), paxNeed=paxNode.querySelector('#paxNeed');
+  const paxList=paxNode.querySelector('#paxList'), paxNeed=null;
+  const delIc='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>';
+  const editIc='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.12 2.12 0 00-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg>';
   function paxRowHtml(p,i){
     if(p.filled){
-      return `<div class="prow"><span class="av">${p.nm[0]}</span><div class="info"><div class="nm">${p.nm} · ${p.phone}</div><div class="id">${p.tag} · 身份证 ${p.idn}</div></div><span class="tag">已填</span></div>`;
+      return `<div class="prow"><span class="pdel" data-i="${i}">${delIc}</span><div class="info"><div class="nm">${p.nm} <span class="ph">${p.phone}</span></div><div class="id">${p.tag} · 身份证 ${p.idn}</div></div><span class="edit" data-i="${i}">${editIc}</span></div>`;
     }
-    return `<div class="prow empty" data-i="${i}"><span class="av wait">${i+1}</span><div class="info"><div class="nm">出行人 ${i+1}（${p.tag}）</div><div class="id">点击填写 / 拍身份证·户口簿自动录入</div></div><span class="fillbtn">去填写</span></div>`;
+    return `<div class="prow empty" data-i="${i}"><span class="pdel dim">${delIc}</span><div class="info"><div class="nm">出行人 ${i+1}（${p.tag}）<span class="todo">待补充</span></div><div class="id">点击填写 / 拍身份证·户口簿自动录入</div></div><span class="fillbtn" data-i="${i}">${editIc}去填写</span></div>`;
   }
   function renderPax(){
     paxList.innerHTML=paxData.map((p,i)=>paxRowHtml(p,i)).join('');
+    // 未填行:点整行 or「去填写」→ 展开表单
     paxList.querySelectorAll('.prow.empty').forEach(row=>{
-      row.onclick=()=>{ if(row.nextElementSibling && row.nextElementSibling.classList.contains('pform')) return; expandForm(row, +row.dataset.i); };
+      const open=()=>{ if(row.nextElementSibling && row.nextElementSibling.classList.contains('pform')) return; expandForm(row, +row.dataset.i); };
+      row.onclick=open;
+    });
+    // 已填行:右侧编辑 → 展开表单;左侧删除 → 从名单移除(至少留1人)
+    paxList.querySelectorAll('.prow .edit').forEach(e=>{
+      e.onclick=(ev)=>{ ev.stopPropagation(); const row=e.closest('.prow'); if(!(row.nextElementSibling&&row.nextElementSibling.classList.contains('pform'))) expandForm(row, +e.dataset.i); };
+    });
+    paxList.querySelectorAll('.prow .pdel:not(.dim)').forEach(d=>{
+      d.onclick=(ev)=>{ ev.stopPropagation(); const i=+d.dataset.i;
+        if(paxData.filter(x=>x.filled).length<=1){ alert('至少保留一位出行人哦～'); return; }
+        paxData.splice(i,1); renderPax(); if(typeof rerenderBook==='function') rerenderBook(); };
     });
     updateNeed();
   }
@@ -3048,6 +3144,7 @@ async function doBooking(){
       updateNeed(); scrollDown();
       // 出行人填好后,商品区门票chip需同步(名单变化)
       if(typeof rerenderBook==='function') rerenderBook();
+      setTimeout(()=>{ renderPax(); }, 550);   // 稍延时让"已识别"闪现,再把该行刷成已填态
     }
     form.querySelector('.pcam').onclick=fillAll;
     form.querySelectorAll('.pfield').forEach(fd=>{ fd.style.cursor='pointer'; fd.onclick=fillAll; });
@@ -3056,43 +3153,40 @@ async function doBooking(){
   function updateNeed(){
     const left=paxData.filter(p=>!p.filled).length;
     S.travelers=paxData.filter(p=>p.filled);
-    if(left===0){ paxNeed.textContent='已完善'; paxNeed.style.color='var(--ok)'; paxNode.classList.add('filled'); }
-    else { paxNeed.textContent='还需完善 '+left+' 人'; paxNeed.style.color='var(--jd-red)'; }
+    if(left===0) paxNode.classList.add('filled'); else paxNode.classList.remove('filled');
   }
 
   // ===== 商品选择(前置:先选品,再确认出行人) =====
-  await playAI(`我为你精选了 <span class="em">机票 / 酒店 / 景点</span>，可勾选或调整 👇`, 600);
+  await playAI(`这是为你选好的 <span class="em">往返机票 + 酒店</span>,可点卡片勾选或调整 👇`, 600);
   const bookNode=addMsg(el(`<div id="bookWrap">${bookInner()}</div>`));
   await sleep(400);
   function rerenderBook(){ bookNode.innerHTML=bookInner(); bindChg(); }
-  // 换舱位/房型 → 弹层选择 → 更新S + 重渲染;门票逐个勾选
+  // 换票或舱位/换房型或报价 → 弹层选择 → 更新S + 重渲染;卡头勾选圈整卡选中/取消
   function bindChg(){
-    bookNode.querySelectorAll('.chg').forEach(btn=>{
+    bookNode.querySelectorAll('.tc-chg').forEach(btn=>{
       btn.onclick=(ev)=>{ ev.stopPropagation(); openOptSheet(btn.dataset.opt); };
     });
-    // 机票/酒店整卡选中/取消
-    bookNode.querySelectorAll('.bh.sw').forEach(bh=>{
-      bh.onclick=()=>{
-        const which=bh.dataset.buy;
-        if(which==='flight') S.buyFlight=!S.buyFlight; else S.buyHotel=!S.buyHotel;
-        bookNode.innerHTML=bookInner(); bindChg();          // 重渲染(金额联动)
+    // 卡头勾选圈:去程/返程/酒店 各自独立选中/取消
+    bookNode.querySelectorAll('.tcard .tc-h').forEach(hd=>{
+      hd.onclick=()=>{
+        const which=hd.closest('.tcard').dataset.buy;
+        if(which==='go') S.buyGo=!S.buyGo; else if(which==='back') S.buyBack=!S.buyBack; else S.buyHotel=!S.buyHotel;
+        bookNode.innerHTML=bookInner(); bindChg();
       };
     });
-    // 门票逐人增减: 点某景点里某人的chip → 移出/加回 S.tkOff[spotKey]
-    bookNode.querySelectorAll('.tkp[data-sp]').forEach(chip=>{
-      chip.onclick=(ev)=>{
+    // 数量步进器:机票人数 / 酒店间数
+    bookNode.querySelectorAll('.tc-step .st-mi, .tc-step .st-pl').forEach(b=>{
+      b.onclick=(ev)=>{
         ev.stopPropagation();
-        const k=chip.dataset.sp, pid=chip.dataset.pid;
-        S.tkOff=S.tkOff||{}; S.tkOff[k]=S.tkOff[k]||[];
-        if(S.tkOff[k].includes(pid)) S.tkOff[k]=S.tkOff[k].filter(x=>x!==pid);
-        else S.tkOff[k].push(pid);
-        // 全景点无人 → 该景点计入 ticketSkip(不买);有人 → 移出 skip
-        const restN=activeTravelers().filter(t=>!S.tkOff[k].includes(t.id)).length;
-        S.ticketSkip=S.ticketSkip||[];
-        if(restN===0 && !S.ticketSkip.includes(k)) S.ticketSkip.push(k);
-        if(restN>0) S.ticketSkip=S.ticketSkip.filter(x=>x!==k);
-        bookNode.innerHTML=bookInner(); bindChg();          // 重渲染(金额联动)
+        const kind=b.closest('.tc-step').dataset.step, d=+b.dataset.d;
+        if(kind==='flight'){ const cur=S.flightN||calcPrices().p; S.flightN=Math.max(1,Math.min(9,cur+d)); }
+        else { S.hotelN=Math.max(1,Math.min(5,(S.hotelN||1)+d)); }
+        bookNode.innerHTML=bookInner(); bindChg();
       };
+    });
+    // 退改签详情
+    bookNode.querySelectorAll('.tc-refund').forEach(r=>{
+      r.onclick=(ev)=>{ ev.stopPropagation(); alert('退改规则（演示）：\n起飞前24小时以上：退票收票价5%，改签免手续费补差价\n起飞前2–24小时：退票收20%，改签收¥300\n起飞前2小时内：退票收50%'); };
     });
   }
   function openOptSheet(kind){
@@ -3115,63 +3209,69 @@ async function doBooking(){
   bindChg();
 
   // ===== 出行人卡(选品之后): 确认预订人信息 =====
-  await playAI(`商品选好啦～ 请确认 <span class="em">出行人信息</span>，机票按人出票、门票按人预约都用这份名单 👇`, 600);
+  await playAI(`商品选好啦～ 请确认 <span class="em">预订人信息</span>，机票按人出票都用这份名单 👇`, 600);
   addMsg(paxNode);
   await sleep(300);
   renderPax();
+  // 选择出行人清单(演示:展开第一个未填的人做勾选/补充)
+  const pickBtn=paxNode.querySelector('#paxPick');
+  const firstEmpty=()=>paxList.querySelector('.prow.empty');
+  if(pickBtn) pickBtn.onclick=()=>{ const r=firstEmpty(); if(r) expandForm(r, +r.dataset.i); else alert('常用出行人已全部添加～'); };
 
   // 底部: 一键预订(需出行人填齐)
-  await playAI('都确认好就可以一键预订啦，我会用这份名单去授权、出票、预约门票 👇', 500);
+  await playAI('都确认好就可以一键预订啦，我会用这份名单去授权、出票 👇', 500);
   await pauseBtnGuard('AI 帮你一键预订 →', doAuth,
-    ()=>{ const c=calcPrices(); const hasItem=S.buyFlight||S.buyHotel||c.mtx.length>0; return paxData.every(p=>p.filled) && hasItem; },
-    ()=>{ const c=calcPrices(); if(!(S.buyFlight||S.buyHotel||c.mtx.length>0)) return '至少选择一项(机票/酒店/门票)才能预订哦～'; return '请先把所有出行人信息填完哦～'; });
+    ()=>{ const cc=calcPrices(); const hasItem=cc.buyFlight||S.buyHotel; return paxData.every(p=>p.filled) && hasItem; },
+    ()=>{ const cc=calcPrices(); if(!(cc.buyFlight||S.buyHotel)) return '至少选择机票或酒店才能预订哦～'; return '请先把所有出行人信息填完哦～'; });
 }
 
-// 授权AI预订(设计稿新增):下单→授权→支付。展示授权范围+总额,同意后进支付
+// 授权AI预订(设计稿 node 1114:15953):机酒确认明细 + 京东AI付授权卡 → 确认授权 → 支付
 async function doAuth(){
   const c=calcPrices(), f=CAT.flights[S.flight], h=CAT.hotels[S.hotel];
   const host=activeTravelers().find(t=>t.isHost)||activeTravelers()[0];
-  await playAI('预订前需要你授权我代为操作 🔐 出行人只登记一次，机票、酒店、门票都用这份名单，我按下面的范围帮你一键完成：', 700);
-  const shield='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>';
-  // 顶部出行人名单(唯一真源,只出现一次)
-  const paxChips=activeTravelers().map(t=>`<span class="pchip"><span class="av">${t.nm[0]}</span><span class="pn">${t.nm}</span><span class="pt">${t.type==='child'?'儿童·'+t.age+'岁':'成人'}</span></span>`).join('');
-  // 门票人×景点网格(每付费景点一块,人chip;免票降权)
-  const resvSpots=c.mtx.filter(m=>m.people.some(x=>x.needResv && x.kind==='free'));
-  const tkBlocks=c.mtx.map(m=>{
-    const dateN=19+m.spot.day;                       // day 1/2/3 → 8/20 8/21 8/22
-    const chips=m.people.map(x=>{
-      if(x.kind==='free') return `<span class="tp free"><span class="tpn">${x.t.nm}</span><span class="tpp">免票${x.needResv?'·已约':''}</span></span>`;
-      return `<span class="tp"><span class="tpn">${x.t.nm}</span><span class="tpp">¥${x.price}</span></span>`;
-    }).join('');
-    const rz=m.people.some(x=>x.needResv)?'<span class="rz">预约制</span>':'';
-    return `<div class="tk-spot"><div class="tsh"><span class="tn">${m.spot.name}${rz}</span><span class="td">8/${dateN}</span><span class="tv">¥${m.sub}</span></div><div class="tpax">${chips}</div></div>`;
-  }).join('');
-  const freeKidNote=resvSpots.length?`<div class="tk-note">👶 <b>${activeTravelers().find(t=>t.type==='child')?.nm||'儿童'}</b> 在${resvSpots.map(m=>m.spot.name).join('、')}免票，但预约制景点<b>仍需实名预约占位</b>，我已经帮你把预约位一起带上了。</div>`:'';
-  await playNode(`<div class="authcard">
-    <div class="auth-h"><span class="ai">${shield}</span><span class="t">授权 AI 旅行助手预订行程</span></div>
-    <div class="auth-pax"><span class="pl">出行人</span>${paxChips}</div>
-    <div class="auth-total"><span class="k">授权总额度</span><span class="v"><b>¥${c.pay}</b><span class="q">?</span></span></div>
-    ${S.buyFlight?`<div class="auth-grp">
-      <div class="auth-gh"><span class="ik">机票授权 · 每人一张</span><span class="iv">¥${c.F}<span class="cv">∧</span></span></div>
-      <div class="auth-sub-item"><span class="sn">${f.out.depAp}→${f.out.arrAp} 8月20日</span><span class="sv">¥${c.fp}×${c.p}人</span></div>
-      <div class="auth-sub-item"><span class="sn">${f.back.depAp}→${f.back.arrAp} 8月22日</span><span class="sv">¥${c.fp}×${c.p}人</span></div>
-    </div>`:''}
-    ${S.buyHotel?`<div class="auth-grp">
-      <div class="auth-gh"><span class="ik">酒店授权 · 1间/${c.p}人入住</span><span class="iv">¥${c.H}<span class="cv">∧</span></span></div>
-      <div class="auth-sub-item"><span class="sn">${h.name}｜${ROOMS[S.room].name}</span><span class="sv"></span></div>
-      <div class="auth-sub-item"><span class="sn">主入住人 ${host.nm}｜8/20入住–8/22离店</span><span class="sv">¥${c.hp}×2晚</span></div>
-    </div>`:''}
-    ${c.mtx.length?`<div class="auth-grp">
-      <div class="auth-gh"><span class="ik">门票授权 · 按人预订</span><span class="iv resv">¥${c.T}<span class="tag">预约保留</span></span></div>
-      ${tkBlocks}
-      ${freeKidNote}
-    </div>`:''}
-    <div class="auth-sub">授权内容说明</div>
-    <div class="auth-row"><span class="k">授权智能体业务</span><span class="v r">AI 旅行助手</span></div>
-    <div class="auth-row"><span class="k">支付方式</span><span class="v r">${(()=>{const now=[S.buyFlight?'机票':'',S.buyHotel?'酒店':''].filter(Boolean).join('');return now?(c.mtx.length?`${now}即时支付 · 门票出行前确认扣款`:`${now}即时支付`):'门票出行前确认扣款';})()}</span></div>
-    <div class="auth-proto">点击同意授权即表示您已阅读并同意<span class="lk">《京东AI付服务协议》</span>和<span class="lk">《授权服务协议》</span></div>
-  </div>`, 400);
-  await pauseBtn('同意授权 →', doCallback);
+  await playAI('机票、酒店都已确认，点击获取支付授权为您下单～', 700);
+  const nF=c.nFlight, nH=c.nHotel, travelers=activeTravelers();
+  const adults=travelers.filter(t=>t.type!=='child'), kids=travelers.filter(t=>t.type==='child');
+  // 机建/燃油(成人/儿童不同):成人机建¥50 燃油¥120;儿童机建¥25 燃油¥60
+  const TAX={adult:{jj:50,ry:120}, child:{jj:25,ry:60}};
+  const apShort=(ap)=>ap.replace(/\s/g,'');
+  const short=(ap)=>ap.replace('机场','').replace(/\s/g,'');
+  // 每段含税总额 = 基础票价×人数 + 机建燃油(成人/儿童分别)
+  const segAmt=(basePr)=>basePr*travelers.length + TAX.adult.jj*adults.length + TAX.adult.ry*adults.length + TAX.child.jj*kids.length + TAX.child.ry*kids.length;
+  // 机票每项:行1标题/行2航站楼+日期+时刻/行3预订人/行4成人·儿童拆机建燃油
+  function flightSum(seg,which,dirName,cityPair,date,basePr){
+    if(!(which==='go'?c.buyGo:c.buyBack)) return '';
+    const paxNames=travelers.map(t=>`${t.nm}${t.type==='child'?'（儿童）':''}`).join('、');
+    const fareLine=(label,base,tax,n)=>`<div class="asum-fare"><span class="fl-lb">${label}</span><span class="fl-cells">票价¥${base} · 机建¥${tax.jj} · 燃油¥${tax.ry}</span><span class="fl-tot">¥${base+tax.jj+tax.ry}×${n}</span></div>`;
+    const segTotal=segAmt(basePr);
+    return `<div class="asum-grp"><div class="asum-h"><span class="an">${dirName}：${cityPair}</span><span class="av">¥${segTotal} <span class="ac">∧</span></span></div>
+      <div class="asum-sub">${short(seg.depAp)}–${short(seg.arrAp)} · ${date} · ${seg.dep}–${seg.arr}</div>
+      <div class="asum-sub">预订人：${paxNames}</div>
+      ${adults.length?fareLine('成人',basePr,TAX.adult,adults.length):''}
+      ${kids.length?fareLine('儿童',basePr,TAX.child,kids.length):''}
+    </div>`;
+  }
+  // 合计 = 即时应付(calcPrices 已含机建燃油),授权金额与之一致
+  const sumTotal=c.payNow;
+  const sumCard=`<div class="asum">
+    ${flightSum(f.out,'go','去程机票','北京-西安','9月20日',c.fpGo)}
+    ${flightSum(f.back,'back','返程机票','西安-北京','9月22日',c.fpBack)}
+    ${S.buyHotel?`<div class="asum-grp"><div class="asum-h"><span class="an">酒店</span><span class="av">¥${c.H} <span class="ac">∧</span></span></div><div class="asum-sub">${h.name} · ${ROOMS[S.room].name.split(' · ')[0]} · 含双早 · 入住12点前可免费取消</div><div class="asum-p"><span>住客：${travelers.map(t=>t.nm).join('、')}</span><span>¥${c.hp}×2×${nH}间</span></div><div class="asum-sub">8月20日入住–8月22日离店，${nH}间</div></div>`:''}
+    <div class="asum-total"><span class="at-k">合计</span><span class="at-v"><span class="cur">¥</span>${sumTotal}</span></div>
+  </div>`;
+  // ② 京东AI付 授权卡
+  const authCard=`<div class="jdpay">
+    <div class="jdpay-h"><span class="jp-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg></span><span class="jp-t">京东AI付</span><span class="jp-tag">任务</span></div>
+    <div class="jdpay-lead">✦ 正在帮您创建支付任务，请先授权</div>
+    <div class="jdpay-row"><span class="jr-ck">✓</span><span class="jr-k">授权智能体</span><span class="jr-v">AI 旅行助手</span></div>
+    <div class="jdpay-row"><span class="jr-ck">✓</span><span class="jr-k">任务内容</span><span class="jr-v">一键合并支付行程内订单</span></div>
+    <div class="jdpay-row"><span class="jr-ck">✓</span><span class="jr-k">任务有效期</span><span class="jr-v">2026-09-14</span></div>
+    <div class="jdpay-total"><span class="jt-k">授权总金额</span><span class="jt-v"><span class="cur">¥</span>${c.payNow}</span></div>
+    <div class="jdpay-proto">点击按钮代表已阅读并同意<span class="lk">《京东AI付服务协议》</span>和<span class="lk">《授权服务协议》</span></div>
+  </div>`;
+  await playNode(sumCard, 400);
+  await playNode(authCard, 400);
+  await pauseBtn('确认授权', doCallback);
 }
 
 // 回调页(设计稿):授权后系统回调确认各项价格 → 展示"价格已确认"清单卡 + 获取支付授权按钮 → 进支付
@@ -3180,10 +3280,10 @@ async function doCallback(){
   await playUser('去支付');
   const rcv='<svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
   let rows='';
-  if(S.buyFlight) rows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机票 往返 <b>¥${c.F}</b><span class="paid">价格已确认</span></span>${rcv}</div>`;
+  if(c.buyFlight) rows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机票 往返 <b>¥${c.F}</b><span class="paid">价格已确认</span></span>${rcv}</div>`;
   if(S.buyHotel) rows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">酒店 ${h.name} <b>¥${c.H}</b><span class="paid">房间已确认</span></span>${rcv}</div>`;
   if(c.mtx.length) rows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">门票 按出行人 <b>¥${c.T}</b><span class="paid">预约位已保留</span></span>${rcv}</div>`;
-  const payLine=c.payNow>0?`本次支付 <b>¥${c.payNow}</b> ${[S.buyFlight?'机票':'',S.buyHotel?'酒店':''].filter(Boolean).join('+')}${c.mtx.length?'，门票出行前确认扣款':''}`:`本次仅预约门票 <b>¥${c.T}</b>，出行前确认扣款`;
+  const payLine=c.payNow>0?`本次支付 <b>¥${c.payNow}</b> ${[c.buyFlight?'机票':'',S.buyHotel?'酒店':''].filter(Boolean).join('+')}${c.mtx.length?'，门票出行前确认扣款':''}`:`本次仅预约门票 <b>¥${c.T}</b>，出行前确认扣款`;
   rows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">${payLine}</span>${rcv}</div>`;
   rows+=`<div class="ai-row"><span class="ck star">✦</span><span class="rtx">搞定！快来看看吧</span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></div>`;
   await playNode(`<div class="ai-list">${rows}</div>`, 500);
@@ -3208,27 +3308,130 @@ async function doPay(){
   await playAI('密码验证通过 ✅ 正在为你逐笔出票，稍等 💳', 650);
   // 支付进展思考链(仅对已选品类;门票预约保留不即时扣款)
   const think=[];
-  if(S.buyFlight) think.push({i:'spot',t:`机票 <b>HU7601/7602</b> 出票中…${c.p}人已实名，<b>出票成功</b> ✈️`});
+  if(c.buyFlight) think.push({i:'spot',t:`机票 <b>HU7601/7602</b> 出票中…${c.p}人已实名，<b>出票成功</b> ✈️`});
   if(S.buyHotel) think.push({i:'map',t:'酒店 <b>${h.name}</b> 提交中…商家确认，<b>预订成功</b> 🏨'});
   if(c.mtx.length) think.push({i:'food',t:'门票 按出行人预约中…成人票+儿童免票位已锁，<b>预约位保留成功</b>，出行前1天自动确认 🎫'});
   await playThink(think.map(x=>({i:x.i,t:x.t.replace('${h.name}',h.name)})), 700);
-  const paidCats=[S.buyFlight?'机票':'',S.buyHotel?'酒店':''].filter(Boolean).join('、');
-  const doneMsg=c.payNow>0
-    ? `全部搞定啦 🎉 <span class="em">${paidCats}已支付完成</span>，本次实付 ¥${c.payNow}${c.mtx.length?`；<span class="em">门票 ¥${c.T} 预约位已保留</span>，出行前一天自动确认扣款`:''}。行程已经帮你添加到<b>「行程」</b>里啦～`
-    : `搞定啦 🎉 <span class="em">门票 ¥${c.T} 预约位已保留</span>，出行前一天自动确认扣款。行程已经帮你添加到<b>「行程」</b>里啦～`;
+  const paidCats=[c.buyFlight?'机票':'',S.buyHotel?'酒店':''].filter(Boolean).join('、');
+  // 对齐设计稿 node 1114:16636 收尾话术:机票已出票、酒店已确认、行程同步日历
+  const doneMsg=`全部搞定啦 🎉 合计实付 <span class="em">¥${c.payNow}</span>，${[c.buyFlight?'机票已出票':'',S.buyHotel?'酒店已确认':''].filter(Boolean).join('、')}，行程也同步到<b>行程日历</b>了。出发前我会主动提醒你值机～`;
   await playAI(doneMsg, 800);
   await playAI('想了解每笔的出票状态，点下面查看全部订单 👇', 700);
   const ob=addMsg(el(`<div class="qr-wrap"><span class="qr primary" id="viewOrdersBtn">📋 查看全部订单</span></div>`));
-  ob.querySelector('#viewOrdersBtn').onclick=()=>{ ob.remove(); viewOrdersInChat(); };
+  ob.querySelector('#viewOrdersBtn').onclick=async ()=>{ ob.remove(); await viewOrdersInChat(); };  // 景点门票预订暂停,订单页「你还可以问」保留入口
 }
 
+// 机酒支付成功后:AI 追问是否现在订景点门票(可改期,不急也行)。单一景点入口。
+async function askBookTickets(){
+  const paid=S.spots.filter(k=>CAT.spots[k].price>0 && !(S.tkDone&&S.tkDone.includes(k)));
+  if(!paid.length) return;                     // 无付费景点/已全订 → 不追问
+  await sleep(300);
+  await playAI(`机票酒店都订好啦 ✅ 要不要现在把 <span class="em">景点门票</span> 也订了?<br>门票<b>可改期、随时退</b>,不着急的话之后在「行程日历」里点景点也能订 🎫`, 800);
+  const ask=addMsg(el(`<div class="qr-wrap tk-ask"><span class="qr primary" id="tkGo">🎫 现在订景点门票</span><span class="qr ghost" id="tkLater">以后再说</span></div>`));
+  ask.querySelector('#tkLater').onclick=async ()=>{
+    ask.remove();
+    await playUser('以后再说');
+    await playAI('好的~ 行程和已订的机酒都在「行程日历」里,景点想订时点一下就行 😊 祝旅途愉快!', 700);
+    addMsg(el(`<div class="qr-wrap"><span class="qr" id="toCalEnd">📅 去行程日历看看</span><span class="replay" onclick="showHome()">↺ 返回首页重新体验</span></div>`));
+    const t=document.getElementById('toCalEnd'); if(t) t.onclick=()=>showCal();
+  };
+  ask.querySelector('#tkGo').onclick=async ()=>{
+    ask.remove();
+    await playUser('现在订景点门票');
+    await doTicketBooking();
+  };
+}
+
+// 景点门票预订子流程:选人×景点 → 确认 → 支付 → 门票订单(独立于机酒)
+async function doTicketBooking(){
+  S.bookingPhase='ticket';                      // 恢复门票矩阵参与计算
+  const shield='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>';
+  const paidSpots=S.spots.filter(k=>CAT.spots[k].price>0 && !(S.tkDone&&S.tkDone.includes(k)));
+  await playAI(`没问题!这几个景点需要门票,<b>点头像可增减出行人</b>,免票人群自动识别 👇`, 700);
+  function tkInner(){
+    const all=activeTravelers();
+    const rows=paidSpots.map(k=>{
+      const s=CAT.spots[k];
+      const off=(S.tkOff&&S.tkOff[k])||[];
+      const goers=all.filter(t=>!off.includes(t.id));
+      const spotOn=goers.length>0;
+      const sub=goers.reduce((sm,t)=>sm+ticketTypeFor(t,s).price,0);
+      const needResv=s.resv===true;
+      const tags=needResv?['随时退','需实名预约']:['随时退','无需换票','无需预约'];
+      const chips=all.map(t=>{
+        const tt=ticketTypeFor(t,s); const removed=off.includes(t.id);
+        const cls=['tkp']; if(removed)cls.push('rm'); else if(tt.kind==='free')cls.push('free');
+        const price=tt.kind==='free'?`免票${tt.needResv?'·已约':''}`:`¥${tt.price}`;
+        const tick=removed?'＋':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+        return `<span class="${cls.join(' ')}" data-sp="${k}" data-pid="${t.id}"><span class="tkp-ck">${tick}</span><span class="tkp-nm">${t.nm}</span><span class="tkp-pr">${price}</span></span>`;
+      }).join('');
+      const subTxt=spotOn?`¥${sub}`:`<span class="nosel">未选</span>`;
+      return `<div class="tkspot${spotOn?'':' off'}" data-tk="${k}"><div class="tks-h"><span class="tks-thumb" style="background-image:url(${img(s.img)})"></span><span class="tks-mid"><span class="tks-nm">${s.name}门票 ${needResv?'<i class="tks-rz">预约制</i>':''}</span><span class="tks-tags">${tags.map(x=>`<span>${x}</span>`).join('')}</span></span><span class="tks-amt">${subTxt}</span></div><div class="tks-pax">${chips}</div></div>`;
+    }).join('');
+    const T=ticketMatrix().reduce((sm,m)=>sm+m.sub,0);
+    return `<div class="bk tkbook"><div class="bh"><span class="t">🎫 景点门票 · 按人预订</span><span class="amt">¥${T}</span><span class="tk-hint">点头像可增减</span></div>
+      ${rows}
+      <div class="rule">${shield}<span><b>退改：</b>未使用可随时退，出行前1天23:00前免费退款</span></div></div>
+    <div class="total"><div class="r m"><span class="l">门票合计</span><span class="big">¥${T}</span></div></div>`;
+  }
+  const tkNode=addMsg(el(`<div class="booking">${tkInner()}</div>`));
+  function bindTk(){
+    tkNode.querySelectorAll('.tkp[data-sp]').forEach(chip=>{
+      chip.onclick=(ev)=>{
+        ev.stopPropagation();
+        const k=chip.dataset.sp, pid=chip.dataset.pid;
+        S.tkOff=S.tkOff||{}; S.tkOff[k]=S.tkOff[k]||[];
+        if(S.tkOff[k].includes(pid)) S.tkOff[k]=S.tkOff[k].filter(x=>x!==pid);
+        else S.tkOff[k].push(pid);
+        tkNode.querySelector('.booking').innerHTML=tkInner(); bindTk();
+      };
+    });
+  }
+  bindTk();
+  await zeroActBar('确认订门票', async ()=>{
+    await playUser('确认订门票');
+    await doTicketPay();
+  });
+}
+
+// 门票支付 + 门票订单(独立订单;沿用密码支付页)
+async function doTicketPay(){
+  const mtx=ticketMatrix();
+  const T=mtx.reduce((sm,m)=>sm+m.sub,0);
+  await playAI(`门票合计 <b>¥${T}</b>,门票支持出行前改期/退款,确认支付即可锁定 👇`, 600);
+  try{ await openPay(T); }catch(e){ await playAI('已取消支付,景点门票随时可在「行程日历」里再订 🎫', 600); return; }
+  // 标记已订景点(记录本次订的景点 key)
+  S.tkDone=(S.tkDone||[]).concat(mtx.map(m=>m.key));
+  await playAI('付好啦 🎉 景点门票已预订成功,凭电子凭证入园 ✅', 700);
+  const ob=addMsg(el(`<div class="qr-wrap"><span class="qr primary" id="viewTkOrders">📋 查看门票订单</span></div>`));
+  ob.querySelector('#viewTkOrders').onclick=async ()=>{ ob.remove(); await viewTicketOrders(mtx); };
+}
+
+// 门票订单卡(独立展示)
+async function viewTicketOrders(mtx){
+  await playUser('查看门票订单');
+  const T=mtx.reduce((sm,m)=>sm+m.sub,0);
+  await playNode(`<div class="ai-lead">景点门票订单来啦～</div><div class="ord-ttl">门票订单</div>`,200);
+  const rows=mtx.map(m=>{
+    const full=m.people.filter(x=>x.kind==='full').length, free=m.people.filter(x=>x.kind==='free').length;
+    const cnt=`成人${full}份${free?`+免票${free}份`:''}`;
+    const resvLn=m.people.some(x=>x.needResv)?'<div class="ln">预约制 · 全员(含免票)已实名占位</div>':'<div class="ln">凭「供应商电子凭证」取票入园</div>';
+    return `<div class="ordc-leg"><div class="lr"><span class="cty" style="font-size:16px">${m.spot.name}门票</span></div><div class="ln">08-${19+m.spot.day} 有效 · ${cnt}</div>${resvLn}</div>`;
+  }).join('');
+  await playNode(`<div class="ordc"><div class="ordc-h"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8a2 2 0 012-2h12a2 2 0 012 2 2 2 0 000 4 2 2 0 000 4 2 2 0 01-2 2H6a2 2 0 01-2-2 2 2 0 000-4 2 2 0 000-4z"/></svg></span><span class="t">门票</span><span class="st">预订成功</span></div>
+    ${rows}
+    <div class="ordc-f"><span class="l">共计</span><span class="cur">¥</span><span class="amt">${T}</span></div></div>`, 400);
+  await playAI('景点门票和机酒订单都在「行程日历」和「订单中心」里,祝你玩得开心 😊', 700);
+  addMsg(el(`<div class="qr-wrap"><span class="qr" id="toCalTk">📅 去行程日历</span><span class="replay" onclick="showHome()">↺ 返回首页重新体验</span></div>`));
+  const t=document.getElementById('toCalTk'); if(t) t.onclick=()=>showCal();
+}
 // 在对话中展开每笔订单+出票状态,下方给后续引导(查看行程/分享/攻略)
 async function viewOrdersInChat(){
   await playUser('查看订单');
   const c=calcPrices(), f=CAT.flights[S.flight], h=CAT.hotels[S.hotel];
   const rcv='<svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
   let orows='';
-  if(S.buyFlight) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机票 往返 <b>¥${c.F}</b><span class="paid">已支付</span></span>${rcv}</div>`;
+  if(c.buyFlight) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机票 往返 <b>¥${c.F}</b><span class="paid">已支付</span></span>${rcv}</div>`;
   if(S.buyHotel) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">酒店 ${h.name} <b>¥${c.H}</b><span class="paid">已支付</span></span>${rcv}</div>`;
   if(c.mtx.length) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">门票 按出行人 <b>¥${c.T}</b><span class="paid">预约保留中</span></span>${rcv}</div>`;
   if(c.payNow>0) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">本次实付 <b>¥${c.payNow}</b>${c.mtx.length?'（机酒），门票出行前确认扣款':''}</span>${rcv}</div>`;
@@ -3237,7 +3440,7 @@ async function viewOrdersInChat(){
   await playNode(`<div class="ai-list">${orows}</div>`, 500);
   await playNode(`<div class="ai-lead">西安行程中的订单都在这里了～</div><div class="ord-ttl">全部订单</div>`,200);
   // 1) 往返机票合并一卡(去程+返程两段航程同卡)—— 仅在选购机票时
-  if(S.buyFlight) await playNode(`<div class="ordc"><div class="ordc-h"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5a2 2 0 00-2.8-2.8L13 8.2 4.8 6.4a1 1 0 00-.9 1.7l5.6 3.9-2.3 2.3H4.5l-1 1 3 1.5L11 21l1-1v-2.6l2.3-2.3 3.9 5.6a1 1 0 001.7-.9z"/></svg></span><span class="t">往返机票</span><span class="st">已出票</span></div>
+  if(c.buyFlight) await playNode(`<div class="ordc"><div class="ordc-h"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5a2 2 0 00-2.8-2.8L13 8.2 4.8 6.4a1 1 0 00-.9 1.7l5.6 3.9-2.3 2.3H4.5l-1 1 3 1.5L11 21l1-1v-2.6l2.3-2.3 3.9 5.6a1 1 0 001.7-.9z"/></svg></span><span class="t">往返机票</span><span class="st">已出票</span></div>
     <div class="ordc-leg"><div class="lr"><span class="cty">北京</span><span class="ar">→</span><span class="cty">西安</span></div><div class="ln">08-20 ${f.out.dep} 至 ${f.out.arr}</div><div class="ln">${f.name}${f.out.no}·${f.out.depAp}起飞</div></div>
     <div class="ordc-leg"><div class="lr"><span class="cty">西安</span><span class="ar">→</span><span class="cty">北京</span></div><div class="ln">08-22 ${f.back.dep} 至 ${f.back.arr}</div><div class="ln">${f.name}${f.back.no}·${f.back.depAp}起飞</div></div>
     <div class="ordc-f"><span class="l">共计</span><span class="cur">¥</span><span class="amt">${c.F}</span></div></div>`, 400);
@@ -3260,14 +3463,14 @@ async function viewOrdersInChat(){
       <div class="ordc-f"><span class="l">待确认</span><span class="cur">¥</span><span class="amt">${c.T}</span></div></div>`, 400);
   }
   await sleep(300);
-  // 你还可以问(整宽灰色圆角框)
+  // 你还可以问(整宽灰色圆角框) —— 对齐设计稿 node 1114:16636:查看行程/行前准备/预订景点门票
   const guide=addMsg(el(`<div class="ord-ask"><div class="ask-lb">你还可以问</div>
-    <span class="ask-box" id="gTrip">保存行程</span>
+    <span class="ask-box" id="gTrip">查看行程</span>
     <span class="ask-box" id="gTip">行前准备清单和注意事项</span>
-    <span class="ask-box" id="gFood">推荐当地美食</span></div>`));
+    <span class="ask-box" id="gTk">预订景点门票</span></div>`));
   guide.querySelector('#gTrip').onclick=showCal;
   guide.querySelector('#gTip').onclick=async ()=>{ guide.querySelector('#gTip').classList.add('used'); await askTips(); };
-  guide.querySelector('#gFood').onclick=()=>alert('推荐当地美食（演示）：回民街·贾三灌汤包 / 永兴坊·摔碗酒 / 老孙家泡馍');
+  guide.querySelector('#gTk').onclick=async ()=>{ await playUser('预订景点门票'); await playAI('景点门票预订马上就来～ 目前行程和机酒都已确认,门票可改期,稍后开放预订后我第一时间提醒你 🎫', 700); };
 }
 
 // AI 攻略: AI主动开场,抛可点击追问,点一个答一段,对话感强
@@ -3414,7 +3617,7 @@ function renderCal(){
       const st=bookStatus(n,ty);
       const stHtml=st?`<span class="nst st-${st.k}">${st.t}</span>`:'';
       const head=`<div class="nhead"><span class="ntm">${n.tm}</span><span class="ncat cat-${ty}">${calLabel[ty]}</span>${stHtml}</div>`;
-      const tip=`<div class="ptip${n.tip.w?' warn':''}"><span class="ti">${n.tip.w?'⚠️':'💡'}</span><div>${n.tip.t}</div></div>`;
+      const tip=n.tip?`<div class="ptip${n.tip.w?' warn':''}"><span class="ti">${n.tip.w?'⚠️':'💡'}</span><div>${n.tip.t}</div></div>`:'';
       const actBox=actHtml?`<div class="ptip-act">${actHtml}</div>`:'';
       if(imgf){
         return `<div class="node${n.done?' done':''}"><div class="dot d-${ty}"></div><div class="pcard">${head}<div class="nbody"><div class="nthumb" style="background-image:url(${img(imgf)})"></div><div class="ninfo"><div class="nnm">${n.nm}</div><div class="nsub">${n.sub}</div></div></div>${tip}${actBox}</div></div>`;
