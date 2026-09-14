@@ -112,6 +112,23 @@
   .opt-sheet .opt-op .on-name{flex:1;font-size:13px;font-weight:700;color:var(--ink);}
   .opt-sheet .opt-op .on-price{font-size:12px;font-weight:800;color:var(--jd-red);}
   .opt-sheet .opt-op .on-price.free{color:var(--ink-3);font-weight:600;}
+  /* 景点详情半浮层(对齐 zero 1114:18372,大唐不夜城) */
+  .spot-sheet{position:absolute;left:0;right:0;bottom:0;z-index:57;background:#fff;border-radius:16px 16px 0 0;max-height:88%;overflow-y:auto;transform:translateY(100%);transition:.3s cubic-bezier(.3,.9,.3,1);}
+  .spot-sheet.on{transform:none;}
+  .spot-sheet .ss-hd{position:relative;padding:16px 16px 12px;} .spot-sheet .ss-title{font-size:20px;font-weight:700;color:#11141A;line-height:24px;}
+  .spot-sheet .ss-close{position:absolute;right:14px;top:14px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:#8D9199;cursor:pointer;} .spot-sheet .ss-close svg{width:20px;height:20px;}
+  .spot-sheet .ss-tags{display:flex;gap:8px;padding:0 16px;margin-top:2px;} .spot-sheet .ss-tags span{font-size:11px;color:#4F5259;background:rgba(17,20,26,.08);border-radius:2px;padding:3px 4px;line-height:10px;}
+  .spot-sheet .ss-imgs{display:flex;gap:8px;padding:16px;overflow-x:auto;scrollbar-width:none;} .spot-sheet .ss-imgs::-webkit-scrollbar{display:none;} .spot-sheet .ss-imgs .ss-img{flex:0 0 auto;width:160px;height:120px;border-radius:12px;background-size:cover;background-position:center;}
+  .spot-sheet .ss-sec{padding:0 16px;margin-bottom:16px;}
+  .spot-sheet .ss-sh{display:flex;align-items:center;gap:8px;margin-bottom:8px;} .spot-sheet .ss-sh .ss-st{font-size:16px;font-weight:700;color:#11141A;} .spot-sheet .ss-ai{font-size:10px;color:#7E17E6;border:.5px solid #CBA2F5;border-radius:2px;padding:2px 4px;line-height:9px;}
+  .spot-sheet .ss-desc{font-size:14px;line-height:22px;color:#4F5259;}
+  .spot-sheet .ss-hl{border-radius:16px 48px 16px 16px;border-top:.5px solid #fff;padding:8px 12px 12px;margin-bottom:8px;background:linear-gradient(90deg,#F5F0FF 50%,#F5F6FA 100%);}
+  .spot-sheet .ss-oh{border-radius:16px 48px 16px 16px;border-top:.5px solid #fff;padding:8px 12px 12px;background:linear-gradient(to left,#FDF8FF,#FFF1F4);}
+  .spot-sheet .ss-badge{display:inline-flex;align-items:center;gap:3px;height:24px;padding:0 12px;border-radius:103px;font-size:13px;font-weight:700;color:#fff;margin-bottom:8px;} .spot-sheet .ss-badge .em{font-style:italic;font-size:11px;opacity:.9;}
+  .spot-sheet .ss-badge.hl{background:linear-gradient(91deg,#8A5CF6,#B478FF);} .spot-sheet .ss-badge.oh{background:linear-gradient(91deg,#FF2B20 26%,#FF66C6 122%);}
+  .spot-sheet .ss-item{font-size:12px;line-height:18px;color:#4F5259;margin-top:3px;} .spot-sheet .ss-item b{color:#11141A;font-weight:600;}
+  .spot-sheet .ss-foot{position:sticky;bottom:0;background:#fff;padding:10px 16px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #F0EDF2;}
+  .spot-sheet .ss-add{height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:600;color:#fff;background:linear-gradient(135deg,#443C4D,#120A1A);cursor:pointer;} .spot-sheet .ss-add.added{background:#F2F3F5;color:#4F5259;}
   /* 支付页(对齐 zero 1114:16274):变暗页面 + 居中密码对话框 + iOS 数字键盘 */
   .pay-mask{position:absolute;inset:0;background:rgba(20,24,36,.45);opacity:0;visibility:hidden;transition:.25s;z-index:58;}
   .pay-mask.on{opacity:1;visibility:visible;}
@@ -1291,6 +1308,11 @@
         <div class="reqedit-done" id="reqDone">完成</div>
       </div>
 
+      <!-- 景点详情半浮层(对齐 zero 1114:18372,大唐不夜城示范) -->
+      <div class="opt-mask" id="spotMask"></div>
+      <div class="spot-sheet" id="spotSheet"></div>
+
+
       <!-- 支付页(对齐 zero 1114:16274):变暗遮罩 + 居中密码对话框 + iOS 数字键盘 -->
       <div class="pay-mask" id="payMask"></div>
       <div class="pay-dialog" id="payDialog">
@@ -1897,6 +1919,41 @@ const micBtn=document.getElementById('micBtn'), voiceMask=document.getElementByI
 // 通用选择弹层(换舱位/房型)元素 + 遮罩点击关闭
 const optMask=document.getElementById('optMask'), optSheet=document.getElementById('optSheet'), optTitle=document.getElementById('optTitle'), optList=document.getElementById('optList');
 optMask.onclick=()=>{ optMask.classList.remove('on'); optSheet.classList.remove('on'); };
+// 景点详情半浮层(大唐不夜城示范,对齐 zero 1114:18372)
+const spotMask=document.getElementById('spotMask'), spotSheet=document.getElementById('spotSheet');
+const SPOT_DETAIL={ dt:{
+  title:'大唐不夜城', tags:['西安市景点TOP1','风景名胜'], imgs:['datang.jpg','chengqiang.jpg','bingmayong.jpg'],
+  desc:'大唐不夜城位于西安市雁塔区大雁塔脚下，是一条南北长2100米的仿唐建筑步行街，免费开放。夜晚灯火璀璨，唐风雕塑与灯光表演再现盛唐气象，可观赏不倒翁小姐姐等互动演出。',
+  hl:[['夜景璀璨','整条街灯火璀璨，沉浸式解锁千年前长安的繁华'],['免费开放','不用门票、不用预约'],['灯光精髓','夜晚灯光才是精髓']],
+  oh:[['人流量过大','人是真的多啊，只记得人是有多拥挤'],['实为商业街','实际上是很长的一条商业街'],['拉客拍照坑','主包一进去被人拉客拍照，说是很便宜其实钱也不少']]
+}};
+function closeSpotSheet(){ spotMask.classList.remove('on'); spotSheet.classList.remove('on'); }
+spotMask.onclick=closeSpotSheet;
+function openSpotSheet(key){
+  const d=SPOT_DETAIL[key]; if(!d) return;
+  const on=S.spots.includes(key);
+  const line=(arr)=>arr.map(([t,x])=>`<div class="ss-item"><b>${t}：</b>${x}</div>`).join('');
+  spotSheet.innerHTML=`
+    <div class="ss-hd"><div class="ss-title">${d.title}</div><span class="ss-close" id="ssClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div>
+    <div class="ss-tags">${d.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+    <div class="ss-imgs">${d.imgs.map(f=>`<div class="ss-img" style="background-image:url(${img(f)})"></div>`).join('')}</div>
+    <div class="ss-sec"><div class="ss-sh"><span class="ss-st">地点介绍</span><span class="ss-ai">AI生成</span></div><div class="ss-desc">${d.desc}</div></div>
+    <div class="ss-sec"><div class="ss-sh"><span class="ss-st">亮点·避坑</span></div>
+      <div class="ss-hl"><span class="ss-badge hl">亮点 <span class="em">Wow</span></span>${line(d.hl)}</div>
+      <div class="ss-oh"><span class="ss-badge oh">避坑 <span class="em">Oh!</span></span>${line(d.oh)}</div>
+    </div>
+    <div class="ss-foot"><div class="ss-add${on?' added':''}" id="ssAdd">${on?'✓ 已加入行程 · 点此移出':'加入行程'}</div></div>`;
+  spotSheet.querySelector('#ssClose').onclick=closeSpotSheet;
+  spotSheet.querySelector('#ssAdd').onclick=()=>{
+    if(S.spots.includes(key)) S.spots=S.spots.filter(k=>k!==key); else S.spots.push(key);
+    // 同步选品页该卡选中态 + 选品条
+    const card=document.querySelector(`.hscroll[data-pick="spot"] .lcard[data-key="${key}"]`);
+    if(card) card.classList.toggle('sel', S.spots.includes(key));
+    if(typeof refreshSel==='function') refreshSel();
+    openSpotSheet(key);   // 重渲染按钮态
+  };
+  spotMask.classList.add('on'); spotSheet.classList.add('on');
+}
 const shareMask=document.getElementById('shareMask'), shareSheet=document.getElementById('shareSheet');
 const closeShare=()=>{ shareMask.classList.remove('on'); shareSheet.classList.remove('on'); };
 shareMask.onclick=closeShare; document.getElementById('shareClose').onclick=closeShare;
@@ -1938,10 +1995,10 @@ function openReqEdit(type){
     html=`<div class="re-group"><div class="re-gt">人均预算 <span class="re-sub">含机票+酒店+门票</span></div><div class="re-chips" data-grp="budget">${buds.map(b=>chip('¥'+b,b===REQ.budget)).join('')}<span class="re-opt${!buds.includes(REQ.budget)?' on':''}" data-v="不限">不限</span></div></div>`;
   } else { // pref
     title='旅行偏好';
-    const companions=['独自出行','家庭出行','情侣出行','老人同行','朋友结伴'];
+    const companions=['家庭出行','情侣出行','老人同行','朋友结伴'];
     const priorities=['价格优先','体验优先','时间高效'];
     const flightDis=['中转航班','红眼航班','廉价航空'];
-    const hotelDis=['环境差','设施老旧','隔音差'];
+    const hotelDis=['4.5分以下','民宿','公寓'];
     const styles=['经典必去','自然风光','躺平度假','美食探店','历史古迹','网红打卡'];
     const paces=['紧凑','适中','宽松'];
     const stays=['舒适型','高档型','豪华型'];
@@ -2236,8 +2293,9 @@ chat.addEventListener('click', e=>{
   e.stopPropagation();
   const pick = scroll.dataset.pick;
   const key=card.dataset.key;
-  // 机票=整卡点击即选;酒店/景点=点「选它」按钮选,点图/文看详情
-  if(pick!=='flight' && !e.target.closest('.flag')){
+  // 景点/酒店:点图片(.thumb)看详情,点信息/勾选区(.lr)才选中;机票整卡即选
+  if(pick!=='flight' && e.target.closest('.thumb')){
+    if(pick==='spot' && key==='dt'){ openSpotSheet(key); return; }   // 大唐不夜城:弹景点详情半浮层(示范)
     const info=CAT[pick==='hotel'?'hotels':'spots'][key];
     if(info) alert(`查看详情（演示）：${info.name}\n\n${info.reason||info.sub||info.zone||''}\n\n实际会跳转到该 POI 的详情页。`);
     return;
@@ -2742,7 +2800,7 @@ async function runConversation(said, skipIntro){
   // 选品: 景点
   await playNode(`<div class="sec-t"><span class="bar"></span><span class="t">🏯 景点 · 可多选</span><span class="hint spotcnt">已选 ${S.spots.length}</span></div>`,300);
   await playNode(`<div class="sec-note">推荐你这么玩 🏯 已帮你配好<b>兵马俑</b>(看真人比例陶俑最震撼)、<b>城墙</b>(能骑行遛娃)、<b>大唐不夜城</b>(晚上灯光娃最爱);下面还有几个备选,你可按需增减。</div>`,200);
-  await playNode(`<div class="hscroll" data-pick="spot">${spotCard('bmy')}${spotCard('cq')}${spotCard('dt')}${spotCard('dyt')}${spotCard('hqc')}</div>`);
+  await playNode(`<div class="hscroll" data-pick="spot">${spotCard('bmy')}${spotCard('dt')}${spotCard('cq')}${spotCard('dyt')}${spotCard('hqc')}</div>`);
 
   await playNode(`<div class="sec-t"><span class="bar"></span><span class="t">✈️ 机票（北京-西安）</span></div>`,300);
   await playNode(`<div class="sec-note">已帮你配好 <b>海航 10:20 白天班</b>——带娃不用摸黑起床、落地正好午饭。想换也行:<b>国航当日最低¥1300</b>更省钱,<b>东航 7:15 最早到</b>能多玩半天。</div>`,200);
