@@ -978,7 +978,7 @@
   .paxwrap{margin-left:0;margin-bottom:9px;}
   .paxhd{margin-bottom:12px;} .paxhd-t{font-size:16px;font-weight:700;color:#171A26;line-height:1.5;} .paxhd-d{font-size:13px;color:#3D414D;line-height:1.6;margin-top:2px;}
   .paxwrap .pax{background:#fff;border:1px solid #F0EDF2;border-radius:16px;padding:4px 14px;overflow:visible;margin-bottom:0;}
-  .paxwrap .pax-pick{display:flex;align-items:center;justify-content:flex-end;gap:2px;padding:11px 0 3px;font-size:12.5px;font-weight:700;color:var(--indigo);cursor:pointer;} .paxwrap .pax-pick .pk-arr{font-size:14px;}
+  .paxwrap .pax-pick{display:flex;align-items:center;justify-content:flex-end;gap:2px;padding:11px 0 3px;font-size:12.5px;font-weight:700;color:#171A26;cursor:pointer;} .paxwrap .pax-pick .pk-arr{font-size:14px;color:var(--ink-3);}
   .paxwrap .prow{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #F2F3F5;} .paxwrap .prow:last-child{border-bottom:none;}
   .paxwrap .prow .pdel{flex:0 0 auto;width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:#C2C4CC;cursor:pointer;} .paxwrap .prow .pdel svg{width:18px;height:18px;} .paxwrap .prow .pdel:not(.dim):active{color:var(--jd-red);} .paxwrap .prow .pdel.dim{opacity:.45;cursor:default;}
   .paxwrap .prow .info{flex:1;min-width:0;} .paxwrap .prow .info .nm{font-size:14px;font-weight:600;color:#120A1A;display:flex;align-items:center;gap:6px;} .paxwrap .prow .info .nm .ph{font-weight:600;} .paxwrap .prow .info .id{font-size:12px;color:#8D9199;margin-top:5px;}
@@ -2339,12 +2339,12 @@ const CAT={
   spots:{
     bmy:{name:'秦始皇兵马俑',lv:'5A',resv:true,open:'08:30-18:00',play:'建议游玩3-4h',score:'4.7分 超赞',zone:'临潼区',price:120,img:'bingmayong.jpg',day:2,tm:'10:00',sub:'请讲解员带娃看故事 · 主玩2小时',tip:{t:'馆内<b>人多闷热</b>，带小电扇补水喷雾；请个讲解娃才看得进',w:1},color:'#C25A2E',pin:{l:'78%',t:'27%',x:250,y:52},tags:['世界遗产','必打卡','可租讲解'],reason:'西安必去 · 娃看真人比例陶俑超震撼'},
     cq:{name:'西安城墙',lv:'5A',open:'08:00-22:00',play:'建议游玩2-3h',score:'4.8分 超赞',zone:'碑林区',price:54,img:'chengqiang.jpg',day:3,tm:'09:30',sub:'南门登城 · 亲子骑行/小火车',tip:{t:'租<b>亲子双人自行车</b>或坐观光车，别徒步走整圈累着娃',w:0},color:'#12A150',pin:{l:'72%',t:'79%',x:232,y:150},tags:['亲子骑行','登城看景','适合遛娃'],reason:'古城墙上骑行 · 娃能撒欢又安全'},
-    dt:{name:'大唐不夜城',lv:'4A',open:'全天开放',play:'建议游玩1-2h',score:'4.6分 超赞',zone:'雁塔区',price:0,img:'datang.jpg',day:1,tm:'19:30',sub:'晚上灯光最美 · 不倒翁娃超爱',tip:{t:'21点后人潮拥挤，给娃口袋放<b>写有手机号的卡片</b>防走散',w:1},color:'var(--indigo)',pin:{l:'22%',t:'32%',x:70,y:60},tags:['免费','夜景','网红打卡'],reason:'夜游灯光秀 · 不倒翁小姐姐娃最爱'},
+    dt:{name:'大唐不夜城',lv:'4A',open:'全天开放',closed:'全年无休',play:'建议游玩1-2h',book:'无需预约',score:'4.6分 超赞',zone:'雁塔区',price:0,img:'datang.jpg',day:1,tm:'19:30',sub:'晚上灯光最美 · 不倒翁娃超爱',tip:{t:'21点后人潮拥挤，给娃口袋放<b>写有手机号的卡片</b>防走散',w:1},color:'var(--indigo)',pin:{l:'22%',t:'32%',x:70,y:60},tags:['免费','夜景','网红打卡'],reason:'夜游灯光秀 · 不倒翁小姐姐娃最爱'},
     hqc:{name:'华清宫',lv:'5A',resv:true,open:'08:00-18:00',play:'建议游玩2-3h',score:'4.5分 超赞',zone:'临潼区',price:120,img:'bingmayong.jpg',day:2,tm:'14:00',sub:'长恨歌故地 · 与兵马俑同在临潼顺路',tip:{t:'和兵马俑<b>同在临潼</b>，一天连着玩不折返；夏天带娃注意遮阳',w:0},color:'#C25A2E',pin:{l:'88%',t:'46%',x:282,y:87},tags:['皇家园林','顺路临潼','温泉故地'],reason:'兵马俑同一天顺路 · 娃看长恨歌故事'},
     dyt:{name:'大雁塔·大慈恩寺',lv:'5A',open:'08:00-17:00',play:'建议游玩1-2h',score:'4.6分 超赞',zone:'雁塔区',price:50,img:'datang.jpg',day:1,tm:'17:30',sub:'与大唐不夜城相邻 · 北广场音乐喷泉',tip:{t:'紧挨<b>大唐不夜城</b>，傍晚看塔+晚上看喷泉一站连玩',w:0},color:'var(--indigo)',pin:{l:'34%',t:'22%',x:109,y:42},tags:['地标古塔','邻不夜城','音乐喷泉'],reason:'挨着大唐不夜城 · 傍晚顺路打卡'},
     slb:{name:'陕西历史博物馆',lv:'5A',resv:true,open:'09:00-17:30',play:'建议游玩2-3h',score:'4.8分 超赞',zone:'雁塔区',price:0,img:'chengqiang.jpg',day:3,tm:'09:00',sub:'室内·娃看国宝 · 需提前预约',tip:{t:'<b>室内空调</b>雨天暴晒都适合；免费但要<b>提前预约</b>',w:1},color:'#12A150',pin:{l:'52%',t:'88%',x:166,y:167},tags:['免费·预约','室内避暑','国宝云集'],reason:'室内不晒不淋 · 娃看真国宝长见识'},
     yxf:{name:'永兴坊',lv:'4A',open:'10:00-22:00',play:'建议游玩1h',score:'4.4分 超棒',zone:'新城区',price:0,img:'datang.jpg',day:1,tm:'12:00',sub:'摔碗酒+非遗小吃 · 城内顺路',tip:{t:'城内小吃街,<b>娃能吃的清淡面点</b>也多,中午顺路解决吃饭',w:0},color:'var(--indigo)',pin:{l:'42%',t:'62%',x:134,y:118},tags:['免费','非遗美食','城内顺路'],reason:'城内美食街 · 中午顺路带娃尝鲜'},
-    zgl:{name:'钟鼓楼',lv:'4A',open:'08:30-21:00',play:'建议游玩1h',score:'4.5分 超赞',zone:'碑林区',price:0,img:'zhonglou.jpg',day:1,tm:'16:00',sub:'酒店步行8分钟 · 距回民街100米，适合边走边吃',tip:{t:'回民街<b>清真小吃偏重口</b>，给娃备点清淡的，肠胃药随身',w:1},color:'var(--indigo)',pin:{l:'29%',t:'73%',x:92,y:138},tags:['免费','近酒店','邻回民街'],reason:'酒店步行8分钟 · 边逛边吃回民街'}
+    zgl:{name:'钟鼓楼',lv:'4A',open:'08:30-21:00',closed:'每周一闭馆',play:'建议游玩1h',book:'提前1天预约',score:'4.5分 超赞',zone:'碑林区',price:0,img:'zhonglou.jpg',day:1,tm:'16:00',sub:'酒店步行8分钟 · 距回民街100米，适合边走边吃',tip:{t:'回民街<b>清真小吃偏重口</b>，给娃备点清淡的，肠胃药随身',w:1},color:'var(--indigo)',pin:{l:'29%',t:'73%',x:92,y:138},tags:['免费','近酒店','邻回民街'],reason:'酒店步行8分钟 · 边逛边吃回民街'}
   },
   // (钟鼓楼原为固定顺路点,现并入 spots 作为可增删景点;fixed 保留空占位以防旧引用)
   fixed:{}
@@ -2935,11 +2935,11 @@ async function genItinerary(){
       // 景点节点:有 spotKey;或固定点(钟鼓楼)有 fixedKey
       const sp = (it.spotKey && CAT.spots[it.spotKey]) || (it.fixedKey && CAT.fixed[it.fixedKey]);
       if(sp){
-        const parts=[];
-        if(sp.open) parts.push('营业 '+sp.open);
-        if(sp.play) parts.push(sp.play);
-        if(sp.resv) parts.push('需预约');
-        return parts.length?parts.join(dotSep):(it.sub||'');
+        const dot='<span class="ndot"></span>';
+        // 第2行:营业时间(+闭馆);第3行(.nsub2 强制换行):建议游玩(+预约)
+        const row1=[sp.open?'营业 '+sp.open:'', sp.closed||''].filter(Boolean).join(dot);
+        const row2=[sp.play||'', sp.book||(sp.resv?'需预约':'')].filter(Boolean).join('，');
+        return row1 + (row2?`<span class="nsub2">${row2}</span>`:'');
       }
       // 酒店入住节点:统一展示入离规则(替换原「区域·距景点」重复信息)
       if(/入住/.test(it.nm)){
@@ -3155,7 +3155,7 @@ async function doBooking(){
   // 预订人信息(用户细化):左=删除该行、右=编辑该行;头部「选择出行人清单 ›」;未填行红字「待补充」
   const paxNode=el(`<div class="paxwrap">
     <div class="paxhd"><div class="paxhd-t">👨‍👩‍👧 确定预订人信息</div><div class="paxhd-d">请查看您的预订人信息，也可从常用出行人中勾选添加～</div></div>
-    <div class="pax" id="paxBox"><div class="pax-pick" id="paxPick">选择出行人清单 <span class="pk-arr">›</span></div><div id="paxList"></div>
+    <div class="pax" id="paxBox"><div class="pax-pick" id="paxPick">选择出行人 <span class="pk-arr">›</span></div><div id="paxList"></div>
     </div>
   </div>`);
   const paxList=paxNode.querySelector('#paxList'), paxNeed=null;
