@@ -645,7 +645,7 @@
   .tcard .tc-route{display:flex;align-items:center;gap:8px;margin-top:12px;} .tcard .tc-route .cty{font-size:17px;font-weight:800;color:#171A26;} .tcard .tc-route .arr{color:var(--ink-3);font-size:14px;}
   .tcard .tc-info{font-size:12px;line-height:1.6;color:#4F5259;margin-top:5px;}
   /* 机票卡:航站楼–航站楼 + 日期 + 时刻 并列一行 */
-  .tcard .tc-fline{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:12px;} .tcard .tc-fline .tc-ap{font-size:16px;font-weight:800;color:#171A26;} .tcard .tc-fline .tc-dash{color:var(--ink-3);font-weight:700;} .tcard .tc-fline .tc-date{font-size:12px;color:#8D9199;margin-left:4px;} .tcard .tc-fline .tc-time{font-size:12px;color:#4F5259;font-weight:600;}
+  .tcard .tc-fline{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:12px;} .tcard .tc-fline .tc-ap{font-size:16px;font-weight:800;color:#171A26;} .tcard .tc-fline .tc-dash{color:var(--ink-3);font-weight:700;} .tcard .tc-fline .tc-when{font-size:12px;color:#8D9199;font-weight:600;margin-left:4px;}
   /* 第2操作行:退改签(可点)+ 换票或舱位 */
   .tcard .tc-optrow{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
   .tcard .tc-refund{font-size:12px;color:#4F5259;font-weight:600;cursor:pointer;} .tcard .tc-refund .rf-arr{color:#B0B3BA;margin-left:1px;}
@@ -657,7 +657,7 @@
   /* 酒店卡(无图无评分) */
   .tcard .tc-hname2{font-size:15px;font-weight:800;color:#171A26;margin-top:12px;}
   .tcard .tc-roomrow{display:flex;align-items:flex-start;justify-content:space-between;margin-top:7px;gap:8px;} .tcard .tc-room{font-size:12px;line-height:1.6;color:#4F5259;flex:1;min-width:0;}
-  .tcard .tc-cancel2{display:flex;align-items:center;gap:6px;margin-top:8px;} .tcard .tc-cancel2 .cc-tag{flex:0 0 auto;font-size:10px;font-weight:700;color:#0A6CFF;background:#EAF2FF;border-radius:4px;padding:2px 6px;} .tcard .tc-cancel2 .cc-tx{font-size:12px;color:#0A6CFF;font-weight:600;}
+  .tcard .tc-cancel2{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;} .tcard .tc-cancel2 .cc-tx{font-size:12px;color:#0A6CFF;font-weight:600;flex:1;min-width:0;}
   /* 已选合计条 + 主按钮 */
   .tc-sum{display:flex;align-items:center;justify-content:space-between;margin:2px 0 12px;} .tc-sum-l{font-size:14px;color:#171A26;} .tc-sum-r{font-size:11px;font-weight:800;color:#4F5259;} .tc-sum-r .cur{color:#FF0400;font-size:12px;margin-left:6px;} .tc-sum-r b{color:#FF0400;font-size:17px;font-family:var(--font);margin-left:1px;}
 
@@ -3064,25 +3064,27 @@ async function doBooking(){
     const chk=(on)=>`<span class="tc-ck${on?' on':''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>`;
     const stepper=(kind)=>`<span class="tc-step" data-step="${kind}"><span class="st-mi" data-d="-1">−</span><span class="st-n">${kind==='flight'?nF:nH}</span><span class="st-pl" data-d="1">＋</span></span>`;
     // ① 去程/返程机票卡(各自独立勾选) ② 酒店卡
-    const flightCard=(seg,which,dirName,cityPair,date,price)=>{
+    const flightCard=(seg,which,dirName,cityPair,date,unitPr)=>{
       const on = which==='go'? S.buyGo : S.buyBack;
-      const apShort=(ap)=>ap.replace('机场','').replace(/\s/g,'');   // 首都T2 / 咸阳T3
+      // 只显示机场(去掉城市名+"机场"字):北京首都机场 T2 → 首都T2
+      const apShort=(ap)=>ap.replace(/^(北京|西安|上海|广州|深圳|成都|杭州)/,'').replace('机场','').replace(/\s/g,'');
+      const segTotal=unitPr*nF;                                  // 该段总价 = 单价 × 人数
       return `<div class="tcard${on?'':' off'}" data-buy="${which}">
       <div class="tc-h"><span class="tc-t">${dirName}：${cityPair}</span>${chk(on)}</div>
-      <div class="tc-fline"><span class="tc-ap">${apShort(seg.depAp)}</span><span class="tc-dash">–</span><span class="tc-ap">${apShort(seg.arrAp)}</span><span class="tc-date">${date}</span><span class="tc-time">${seg.dep}–${seg.arr}</span></div>
+      <div class="tc-fline"><span class="tc-ap">${apShort(seg.depAp)}</span><span class="tc-dash">–</span><span class="tc-ap">${apShort(seg.arrAp)}</span><span class="tc-when">${date} ${seg.dep}–${seg.arr}</span></div>
       <div class="tc-info">${f.name}${seg.no} · 免费行李20kg · ${f.meal}</div>
       <div class="tc-optrow"><span class="tc-refund" data-refund="${which}">退改签 ¥${which==='go'?300:360}起 <span class="rf-arr">›</span></span><span class="tc-chg" data-opt="cabin">换票或舱位 ›</span></div>
-      <div class="tc-priceline"><span class="tc-price"><b>¥${price}</b><span class="per">/人</span></span>${stepper('flight')}</div>
+      <div class="tc-priceline"><span class="tc-price"><b>¥${segTotal}</b><span class="per">总价 · ${nF}人</span></span>${stepper('flight')}</div>
     </div>`;
     };
     const flightCards = flightCard(f.out,'go','去程机票','北京-西安','9月20日',c.fpGo)+flightCard(f.back,'back','返程机票','西安-北京','9月22日',c.fpBack);
-    // ③ 酒店卡:无图无评分;名称→入离→房型(床型+含早+免费入住人数,右侧换房型或报价)→取消政策(蓝)→价格
+    // ③ 酒店卡:无图无评分;名称→入离→房型→取消政策(蓝,右侧换房型或报价)→价格
     const hotelCardHtml=`<div class="tcard${S.buyHotel?'':' off'}" data-buy="hotel">
       <div class="tc-h"><span class="tc-t">酒店 · 2晚</span>${chk(S.buyHotel)}</div>
       <div class="tc-hname2">${h.name}</div>
       <div class="tc-info">8月20日入住 · 8月22日离店 · 共2晚 · ${nH}间</div>
-      <div class="tc-roomrow"><span class="tc-room">${roomName} ${h.bed}，含双早，${h.freeStay}</span><span class="tc-chg" data-opt="room">换房型或报价 ›</span></div>
-      <div class="tc-cancel2"><span class="cc-tag">立即确认</span><span class="cc-tx">入住当天12点前可免费取消</span></div>
+      <div class="tc-info">${roomName} ${h.bed}，含双早，${h.freeStay}</div>
+      <div class="tc-cancel2"><span class="cc-tx">入住当天12点前可免费取消</span><span class="tc-chg" data-opt="room">换房型或报价 ›</span></div>
       <div class="tc-priceline"><span class="tc-price"><b>¥${c.hp}</b><span class="per">/晚</span></span>${stepper('hotel')}</div>
     </div>`;
     const selTxt=[S.buyGo?'去程':'',S.buyBack?'返程':''].filter(Boolean).join('/');
@@ -3256,7 +3258,7 @@ async function doAuth(){
   const sumCard=`<div class="asum">
     ${flightSum(f.out,'go','去程机票','北京-西安','9月20日',c.fpGo)}
     ${flightSum(f.back,'back','返程机票','西安-北京','9月22日',c.fpBack)}
-    ${S.buyHotel?`<div class="asum-grp"><div class="asum-h"><span class="an">酒店</span><span class="av">¥${c.H} <span class="ac">∧</span></span></div><div class="asum-sub">${h.name} · ${ROOMS[S.room].name.split(' · ')[0]} · 含双早 · 入住12点前可免费取消</div><div class="asum-p"><span>住客：${travelers.map(t=>t.nm).join('、')}</span><span>¥${c.hp}×2×${nH}间</span></div><div class="asum-sub">8月20日入住–8月22日离店，${nH}间</div></div>`:''}
+    ${S.buyHotel?`<div class="asum-grp"><div class="asum-h"><span class="an">酒店</span><span class="av">¥${c.H} <span class="ac">∧</span></span></div><div class="asum-sub">${h.name} · ${ROOMS[S.room].name.split(' · ')[0]} · 含双早 · 入住12点前可免费取消</div><div class="asum-p"><span>住客：${host.nm} ${host.phone||''}</span><span>¥${c.hp}×2×${nH}间</span></div><div class="asum-sub">8月20日入住–8月22日离店，${nH}间</div></div>`:''}
     <div class="asum-total"><span class="at-k">合计</span><span class="at-v"><span class="cur">¥</span>${sumTotal}</span></div>
   </div>`;
   // ② 京东AI付 授权卡
@@ -3316,7 +3318,15 @@ async function doPay(){
   // 对齐设计稿 node 1114:16636 收尾话术:机票已出票、酒店已确认、行程同步日历
   const doneMsg=`全部搞定啦 🎉 合计实付 <span class="em">¥${c.payNow}</span>，${[c.buyFlight?'机票已出票':'',S.buyHotel?'酒店已确认':''].filter(Boolean).join('、')}，行程也同步到<b>行程日历</b>了。出发前我会主动提醒你值机～`;
   await playAI(doneMsg, 800);
-  await playAI('想了解每笔的出票状态，点下面查看全部订单 👇', 700);
+  // 规划完成即展示机酒支付状态汇总卡(用户要求:移到规划完成后,而非查看订单里)
+  const rcv='<svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  let srows='';
+  if(c.buyFlight) srows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机票 往返 <b>¥${c.F}</b><span class="paid">已出票</span></span>${rcv}</div>`;
+  if(S.buyHotel) srows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">酒店 ${h.name} <b>¥${c.H}</b><span class="paid">已确认</span></span>${rcv}</div>`;
+  if(c.payNow>0) srows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">本次实付 <b>¥${c.payNow}</b></span>${rcv}</div>`;
+  srows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">行程已加入行程日历</span>${rcv}</div>`;
+  await playNode(`<div class="ai-list">${srows}</div>`, 500);
+  await playAI('想了解每笔的出票详情，点下面查看全部订单 👇', 700);
   const ob=addMsg(el(`<div class="qr-wrap"><span class="qr primary" id="viewOrdersBtn">📋 查看全部订单</span></div>`));
   ob.querySelector('#viewOrdersBtn').onclick=async ()=>{ ob.remove(); await viewOrdersInChat(); };  // 景点门票预订暂停,订单页「你还可以问」保留入口
 }
@@ -3429,15 +3439,7 @@ async function viewTicketOrders(mtx){
 async function viewOrdersInChat(){
   await playUser('查看订单');
   const c=calcPrices(), f=CAT.flights[S.flight], h=CAT.hotels[S.hotel];
-  const rcv='<svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
-  let orows='';
-  if(c.buyFlight) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">机票 往返 <b>¥${c.F}</b><span class="paid">已支付</span></span>${rcv}</div>`;
-  if(S.buyHotel) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">酒店 ${h.name} <b>¥${c.H}</b><span class="paid">已支付</span></span>${rcv}</div>`;
-  if(c.mtx.length) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">门票 按出行人 <b>¥${c.T}</b><span class="paid">预约保留中</span></span>${rcv}</div>`;
-  if(c.payNow>0) orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">本次实付 <b>¥${c.payNow}</b>${c.mtx.length?'（机酒），门票出行前确认扣款':''}</span>${rcv}</div>`;
-  orows+=`<div class="ai-row"><span class="ck">✓</span><span class="rtx">行程已加入行程日历</span>${rcv}</div>`;
-  orows+=`<div class="ai-row"><span class="ck star">✦</span><span class="rtx">搞定！快来看看吧</span><svg class="rcv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></div>`;
-  await playNode(`<div class="ai-list">${orows}</div>`, 500);
+  // 查看订单直接展示所有订单卡(支付状态汇总已在规划完成后展示,此处不重复)
   await playNode(`<div class="ai-lead">西安行程中的订单都在这里了～</div><div class="ord-ttl">全部订单</div>`,200);
   // 1) 往返机票合并一卡(去程+返程两段航程同卡)—— 仅在选购机票时
   if(c.buyFlight) await playNode(`<div class="ordc"><div class="ordc-h"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5a2 2 0 00-2.8-2.8L13 8.2 4.8 6.4a1 1 0 00-.9 1.7l5.6 3.9-2.3 2.3H4.5l-1 1 3 1.5L11 21l1-1v-2.6l2.3-2.3 3.9 5.6a1 1 0 001.7-.9z"/></svg></span><span class="t">往返机票</span><span class="st">已出票</span></div>
