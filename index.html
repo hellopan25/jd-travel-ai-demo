@@ -115,7 +115,7 @@
   /* 景点详情半浮层(对齐 zero 1114:18372,大唐不夜城) */
   .spot-sheet{position:absolute;left:0;right:0;bottom:0;z-index:57;background:#fff;border-radius:16px 16px 0 0;max-height:88%;overflow-y:auto;transform:translateY(100%);transition:.3s cubic-bezier(.3,.9,.3,1);}
   .spot-sheet.on{transform:none;}
-  .spot-sheet .ss-hd{position:relative;padding:16px 16px 12px;} .spot-sheet .ss-title{font-size:20px;font-weight:700;color:#11141A;line-height:24px;}
+  .spot-sheet .ss-hd{position:sticky;top:0;z-index:5;background:#fff;padding:16px 16px 12px;} .spot-sheet .ss-title{font-size:20px;font-weight:700;color:#11141A;line-height:24px;}
   .spot-sheet .ss-close{position:absolute;right:14px;top:14px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:#8D9199;cursor:pointer;} .spot-sheet .ss-close svg{width:20px;height:20px;}
   .spot-sheet .ss-tags{display:flex;gap:8px;padding:0 16px;margin-top:2px;} .spot-sheet .ss-tags span{font-size:11px;color:#4F5259;background:rgba(17,20,26,.08);border-radius:2px;padding:3px 4px;line-height:10px;}
   .spot-sheet .ss-imgs{display:flex;gap:8px;padding:16px;overflow-x:auto;scrollbar-width:none;} .spot-sheet .ss-imgs::-webkit-scrollbar{display:none;} .spot-sheet .ss-imgs .ss-img{flex:0 0 auto;width:160px;height:120px;border-radius:12px;background-size:cover;background-position:center;}
@@ -510,29 +510,31 @@
   .tripsum .ts-t{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.2px;}
   .tripsum .ts-d{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-top:8px;} .tripsum .ts-d b{color:var(--ink);font-weight:800;}
   /* 无目的地: 三列对比表单 */
-  /* 目的地对比表:每行一城市,3列横向对比(城市+特点 / 天气+机票 / 景点) */
-  .citytable{margin-left:0;background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 4px 14px -6px rgba(30,20,60,.14);}
-  .cmp-hd{display:flex;background:var(--paper);font-size:11px;font-weight:800;color:var(--ink-3);padding:11px 14px;gap:10px;}
-  .cmp-hd .h0{flex:0 0 16px;} .cmp-hd .h1{flex:0 0 72px;} .cmp-hd .h2{flex:0 0 96px;} .cmp-hd .h3{flex:1;}
-  .cmp-row{display:flex;gap:10px;padding:16px 14px;border-top:1px solid var(--line);align-items:flex-start;cursor:pointer;}
-  .cmp-row.on{background:#f5f0ff;}
-  /* 行内勾选框(对齐设计稿:16×16 圆角8,选中深色渐变+白勾,未选浅灰边框) */
-  .cmp-row .c-ck{flex:0 0 16px;width:16px;height:16px;border-radius:8px;border:1.5px solid var(--text-disabled,#b4b8bf);box-sizing:border-box;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:.15s;}
-  .cmp-row .c-ck svg{width:10px;height:10px;color:#fff;opacity:0;}
+  /* 目的地对比表(对齐 zero 1114:8035:城市/游玩·亮点/游玩·景点 3列,竖分隔线,灰渐变勾选) */
+  .citytable{margin-left:0;background:#fff;border:1px solid #EBEDF2;border-radius:12px;overflow:hidden;}
+  .cmp-hd{display:flex;font-size:12px;color:#11141A;padding:11px 12px 0;gap:0;}
+  .cmp-hd .h0{flex:0 0 92px;text-align:left;padding-left:28px;} .cmp-hd .h1{flex:1;text-align:center;} .cmp-hd .h2{flex:0 0 96px;text-align:center;}
+  .cmp-rows{padding:8px 0 4px;}
+  .cmp-row{display:flex;gap:0;padding:12px 8px 12px 12px;align-items:center;cursor:pointer;position:relative;}
+  .cmp-row+.cmp-row::before{content:'';position:absolute;top:0;left:12px;right:8px;height:1px;background:#F0F1F5;}
+  .cmp-row.on{background:#F2F4F7;border-radius:8px;}
+  /* 列1:勾选圈+城市名+价格 */
+  .cmp-row .c-city{flex:0 0 92px;min-width:0;display:flex;align-items:center;gap:12px;}
+  .cmp-row .c-ck{flex:0 0 16px;width:16px;height:16px;border-radius:8px;border:1px solid #B4B8BF;box-sizing:border-box;display:flex;align-items:center;justify-content:center;transition:.15s;}
+  .cmp-row .c-ck svg{width:9px;height:9px;color:#fff;opacity:0;}
   .cmp-row.on .c-ck{border-color:transparent;background:linear-gradient(135deg,#443C4D 0%,#120A1A 100%);}
   .cmp-row.on .c-ck svg{opacity:1;}
-  .cmp-row .c-city{flex:0 0 72px;min-width:0;display:flex;flex-direction:column;gap:5px;}
-  /* 对比表底部确认按钮(黑底白字,对齐设计稿) */
-  .citytable .cmp-go{margin:4px 12px 14px;text-align:center;font-size:13px;font-weight:800;color:#fff;background:linear-gradient(135deg,#443C4D 0%,#120A1A 100%);border-radius:10px;padding:12px;cursor:pointer;}
+  .cmp-row .c-cinfo{min-width:0;display:flex;flex-direction:column;gap:7px;}
+  .cmp-row .c-cinfo .cn{font-size:14px;font-weight:600;color:#11141A;}
+  .cmp-row .c-cinfo .fp{font-size:12px;color:#4F5259;font-weight:400;line-height:1.35;} .cmp-row .c-cinfo .fp b{display:block;font-size:12px;color:#11141A;font-weight:600;margin-top:2px;}
+  /* 列2:游玩·亮点 */
+  .cmp-row .c-hl{flex:1;min-width:0;font-size:12px;color:#4F5259;line-height:16px;padding:0 8px;} .cmp-row .c-hl b{color:#11141A;font-weight:600;}
+  /* 列3:游玩·景点 */
+  .cmp-row .c-spot{flex:0 0 96px;min-width:0;display:flex;flex-direction:column;gap:8px;font-size:12px;color:#4F5259;line-height:1;}
+  .cmp-row .c-spot .sp{display:block;position:relative;padding-left:10px;} .cmp-row .c-spot .sp::before{content:'';position:absolute;left:0;top:4px;width:3px;height:3px;border-radius:50%;background:#1863B9;}
+  /* 底部确认按钮(黑底白字) */
+  .citytable .cmp-go{margin:8px 12px 12px;text-align:center;font-size:14px;font-weight:600;color:#fff;background:linear-gradient(135deg,#443C4D 0%,#120A1A 100%);border-radius:6px;padding:13px;cursor:pointer;}
   .citytable .cmp-go.used{opacity:.55;}
-  .cmp-row .c-city .cn{font-size:17px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
-  .cmp-row .c-city .rec{font-size:9.5px;font-weight:800;color:#fff;background:var(--glow);border-radius:5px;padding:2px 6px;}
-  .cmp-row .c-city .feat{font-size:12.5px;color:var(--ink-2);font-weight:600;line-height:1.5;} .cmp-row .c-city .feat b{color:var(--indigo);}
-  .cmp-row .c-wm{flex:0 0 96px;display:flex;flex-direction:column;gap:8px;}
-  .cmp-row .c-wm .wx{font-size:12px;color:var(--ink-2);font-weight:600;line-height:1.55;}
-  .cmp-row .c-wm .fp{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.45;} .cmp-row .c-wm .fp b{display:block;font-size:15.5px;color:var(--jd-red);font-weight:800;margin-top:3px;}
-  .cmp-row .c-spot{flex:1;min-width:0;font-size:12.5px;color:var(--ink);line-height:1.75;font-weight:500;}
-  .cmp-row .c-spot .sp{display:block;}
   /* ===== 场景态首页(行前/行中/行后) ===== */
   .scn{padding:0 20px;}
   .scn-hero{padding:20px 20px 0;} .scn-hero h1{font-size:17px;line-height:1.4;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;} .scn-hero h1 .spark{width:10px;height:10px;border-radius:50%;background:var(--glow);box-shadow:0 0 0 4px rgba(252,193,0,.14),0 0 14px rgba(252,193,0,.7);flex:0 0 auto;} .scn-hero h1 .go{color:var(--indigo);} .scn-hero .sub{font-size:13px;font-weight:600;color:var(--ink-3);margin-top:7px;line-height:1.5;}
@@ -886,30 +888,26 @@
   .cal::-webkit-scrollbar{display:none;}
   /* 顶部: 周日历 + 天气 */
   .cal-top{background:#fff;padding:14px 16px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;}
-  .cal-mon{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
-  .cal-mon .m{font-size:14px;font-weight:800;} .cal-mon .m span{color:var(--ink-3);font-weight:600;font-size:11px;margin-left:5px;}
-  .cal-mon .wx{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--ink-2);background:var(--paper);border-radius:14px;padding:4px 10px;}
-  .cal-mon .wx .ic{font-size:13px;} .cal-mon .wx .lo{color:var(--indigo);}
-  /* 类型开关: 全部/旅游/出差 */
-  .cal-seg{display:flex;background:var(--paper);border-radius:9px;padding:2px;}
-  .cal-seg .sg{font-size:10.5px;font-weight:700;color:var(--ink-2);padding:4px 10px;border-radius:7px;cursor:pointer;transition:.15s;}
-  .cal-seg .sg.on{background:var(--indigo);color:#fff;}
+  /* 头部:全部行程 大标题 + 右上日期切换(对齐 zero 1114:18918,蓝色主调) */
+  .cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cal-hd .cal-title{font-size:20px;font-weight:700;color:#1863B9;line-height:20px;}
+  .cal-hd .cal-datepick{display:flex;align-items:center;gap:4px;font-size:12px;color:#3D414D;cursor:pointer;} .cal-hd .cal-datepick svg{width:14px;height:14px;color:#1863B9;}
   .cal-dest .wxin{color:var(--indigo);font-weight:700;}
   .cal-week{display:flex;gap:5px;}
   .cal-week .dy{flex:1;min-width:0;text-align:center;padding:8px 2px 8px;border-radius:13px;cursor:pointer;position:relative;background:var(--paper);transition:.15s;}
   .cal-week .dy .cflag{position:absolute;top:-5px;right:-3px;font-size:8.5px;font-weight:800;color:#fff;padding:1px 5px;border-radius:6px;line-height:1.5;white-space:nowrap;z-index:2;}
-  .cal-week .dy .cflag.today{background:var(--glow);} .cal-week .dy .cflag.depart{background:var(--indigo);} .cal-week .dy .cflag.return{background:var(--ok);}
+  .cal-week .dy .cflag.today{background:var(--glow);} .cal-week .dy .cflag.depart{background:#1863B9;} .cal-week .dy .cflag.return{background:var(--ok);}
   .cal-week .dy .w{font-size:9.5px;color:var(--ink-3);font-weight:600;}
   .cal-week .dy .n{font-size:16px;font-weight:800;color:var(--ink);margin-top:1px;line-height:1;}
   .cal-week .dy .wxd{display:flex;flex-direction:column;align-items:center;margin-top:5px;line-height:1;} .cal-week .dy .wxd .wi{font-size:12px;} .cal-week .dy .wxd .wt{font-size:9.5px;color:var(--ink-3);font-weight:600;margin-top:2px;white-space:nowrap;}
   .cal-week .dy .cty{font-size:10px;color:var(--ink-2);font-weight:600;margin-top:4px;}
-  /* 今日=靛蓝实心 */
-  .cal-week .dy.today{background:var(--indigo);}
-  .cal-week .dy.today .w,.cal-week .dy.today .cty{color:rgba(255,255,255,.75);} .cal-week .dy.today .n{color:#fff;} .cal-week .dy.today .wxd .wt{color:rgba(255,255,255,.8);}
-  .cal-week .dy.today .cflag.today{background:#fff;color:var(--indigo);}
-  /* 选中(非今日)=描边高亮 */
-  .cal-week .dy.on:not(.today){box-shadow:inset 0 0 0 1.5px var(--indigo);background:var(--indigo-soft);}
-  .cal-week .dy.on:not(.today) .n{color:var(--indigo);}
+  /* 今日/出发日=蓝色实心(对齐设计稿) */
+  .cal-week .dy.today,.cal-week .dy.on{background:#1863B9;}
+  .cal-week .dy.today .w,.cal-week .dy.today .cty,.cal-week .dy.on .w,.cal-week .dy.on .cty{color:rgba(255,255,255,.75);} .cal-week .dy.today .n,.cal-week .dy.on .n{color:#fff;} .cal-week .dy.today .wxd .wt,.cal-week .dy.on .wxd .wt{color:rgba(255,255,255,.8);}
+  .cal-week .dy.today .cflag.today{background:#fff;color:#1863B9;}
+  /* 选中(非今日)=蓝色描边高亮 */
+  .cal-week .dy.on:not(.today){box-shadow:inset 0 0 0 1.5px #1863B9;background:#EAF2FF;}
+  .cal-week .dy.on:not(.today) .n{color:#1863B9;} .cal-week .dy.on:not(.today) .w,.cal-week .dy.on:not(.today) .cty{color:#1863B9;} .cal-week .dy.on:not(.today) .wxd .wt{color:#5B7FA6;}
   /* 目的地条 */
   .cal-dest{display:flex;align-items:center;gap:6px;margin-top:11px;padding:8px 11px;font-size:10.5px;color:var(--ink-2);background:var(--indigo-soft);border-radius:10px;}
   .cal-dest b{color:var(--indigo);font-weight:800;} .cal-dest .sep{margin:0 2px;color:var(--ink-3);}
@@ -961,6 +959,12 @@
   .pcard .nbody .ninfo{flex:1;min-width:0;}
   .pcard .nnm{font-size:13px;font-weight:800;color:var(--ink);}
   .pcard .nsub{font-size:10.5px;color:var(--ink-3);margin-top:3px;line-height:1.5;}
+  /* ===== 行程日历页局部蓝色主调(对齐 zero,仅 #cal 内生效,不影响其他页紫色) ===== */
+  #cal .ov-h .bar{background:#1863B9;}
+  #cal .path .node .dot{border-color:#1863B9;}
+  #cal .path .node.done .dot,#cal .path .node .dot.d-stay,#cal .path .node .dot.d-spot,#cal .path .node .dot.d-trans{background:#1863B9;border-color:#1863B9;}
+  #cal .pcard .ph .tm{color:#1863B9;}
+  #cal .ptip-act .tip-act{background:#1863B9;}
   /* 出行人表单(预订页) */
   .pax{margin-left:0;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:9px;}
   .pax .ph{display:flex;align-items:center;gap:7px;padding:11px 13px;border-bottom:1px solid var(--line);} .pax .ph .bar{width:3px;height:14px;border-radius:2px;background:var(--indigo);} .pax .ph .t{font-size:12.5px;font-weight:800;flex:1;} .pax .ph .need{font-size:9.5px;font-weight:700;color:var(--jd-red);}
@@ -2618,19 +2622,18 @@ async function runNoDest(){
   // 2) 需求确认
   await playUser(`我比较看重：${picked.join('、')}`);
   await playAI(`收到～按<span class="em">${picked.join('、')}</span>，我参考<span class="em">未来 2 周的天气和往返交通价格</span>，给你对比了 3 个适合带娃的目的地 👇`, 900);
-  // 3) 三城市对比表(每行一城市,3列:城市+特点 / 天气+交通价 / 景点)—— 靠引导语选城,不点表格
+  // 3) 三城市对比表(对齐 zero 1114:8035:城市/游玩·亮点/游玩·景点;西安选中,灰渐变勾选,竖分隔线)
   const cities=[
-    {k:'qd',name:'青岛',rec:0,ic:'🌊',hl:'<b>海滨避暑</b>沙滩赶海',wx:'24～27℃ 海风凉爽,午后偶阵雨',spots:['栈桥·海底世界','金沙滩赶海','啤酒博物馆'],trans:'高铁',price:920},
-    {k:'cd',name:'成都',rec:0,ic:'🐼',hl:'<b>熊猫+美食</b>逛吃',wx:'24～29℃ 多云,早晚清爽',spots:['大熊猫基地','武侯祠','宽窄巷子'],trans:'直飞',price:1680},
-    {k:'xa',name:'西安',rec:1,ic:'🏯',hl:'<b>历史人文</b>寓教于乐',wx:'26～36℃ 晴晒偏热,注意防晒',spots:['兵马俑','西安城墙','大唐不夜城'],trans:'高铁',price:1050}
+    {k:'xa',name:'西安',rec:1,hl:'天然的<b>避暑胜地</b>，均23℃，节奏舒适含亲子慢游',spots:['兵马俑','西安城墙','大唐不夜城'],trans:'直飞',price:900},
+    {k:'qd',name:'青岛',rec:0,hl:'<b>海风拂面凉爽</b>舒适凉爽25℃，亲子乐园适合带娃体验',spots:['栈桥·海底世界','金沙滩赶海','啤酒博物馆'],trans:'直飞',price:880},
+    {k:'gy',name:'贵阳',rec:0,hl:'誉为<b>“中国凉都”</b>暑期日均气温22℃，山水环绕空气清新',spots:['青岩古镇','黔灵山公园','天河潭'],trans:'直飞',price:960}
   ];
-  const rows=cities.map(c=>`<div class="cmp-row${c.rec?' on':''}" data-city="${c.k}" data-name="${c.name}">
-    <div class="c-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></div>
-    <div class="c-city"><span class="cn">${c.ic}${c.name}${c.rec?'<span class="rec">力荐</span>':''}</span><span class="feat">${c.hl}</span></div>
-    <div class="c-wm"><span class="wx">${c.wx}</span><span class="fp">${c.trans}往返：<b>${c.price}元起</b></span></div>
-    <div class="c-spot">${c.spots.map(s=>`<span class="sp">· ${s}</span>`).join('')}</div>
+  const rows=cities.map((c,i)=>`<div class="cmp-row${c.rec?' on':''}" data-city="${c.k}" data-name="${c.name}">
+    <div class="c-city"><div class="c-ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></div><div class="c-cinfo"><span class="cn">${c.name}</span><span class="fp">直飞预计<b>¥${c.price}起</b></span></div></div>
+    <div class="c-hl">${c.hl}</div>
+    <div class="c-spot">${c.spots.map(s=>`<span class="sp">${s}</span>`).join('')}</div>
   </div>`).join('');
-  const cityCard=addMsg(el(`<div class="citytable"><div class="cmp-hd"><span class="h0"></span><span class="h1">城市 · 特点</span><span class="h2">天气 · 交通</span><span class="h3">游玩推荐</span></div>${rows}<div class="cmp-go" id="cmpGo">选好了，帮我规划 →</div></div>`));
+  const cityCard=addMsg(el(`<div class="citytable"><div class="cmp-hd"><span class="h0">城市</span><span class="h1">游玩·亮点</span><span class="h2">游玩·景点</span></div><div class="cmp-rows">${rows}</div><div class="cmp-go" id="cmpGo">生成详细规划</div></div>`));
   await sleep(400);
   // 行内可点选(对齐设计稿:点表格行选城,默认西安选中)+ 底部按钮确认;保留动态选任意城市
   let sel='xa';
@@ -2647,8 +2650,8 @@ async function runNoDest(){
   await playUser(`就看「${city.name}」吧`);
   // 5) 详述该城市
   const desc={
-    qd:'青岛 8 月<span class="em">海风凉爽 26℃</span>，最适合带娃避暑玩水 🌊 栈桥看海、海底世界、金沙滩赶海，娃能撒欢一整天；海鲜清淡也好安排。',
-    cd:'成都 8 月<span class="em">28℃ 舒适</span>，主打熊猫和美食 🐼 大熊猫基地娃必爱，武侯祠宽窄巷子逛吃结合；口味不辣可调，带娃友好。',
+    qd:'青岛 8 月<span class="em">海风凉爽 25℃</span>，最适合带娃避暑玩水 🌊 栈桥看海、海底世界、金沙滩赶海，娃能撒欢一整天；海鲜清淡也好安排。',
+    gy:'贵阳誉为<span class="em">“中国凉都”</span>，暑期日均 22℃ 🏞 青岩古镇、黔灵山公园、天河潭山水环绕，空气清新带娃舒服；避暑首选。',
     xa:'西安<span class="em">历史人文</span>最出片 🏯 兵马俑、城墙、大唐不夜城寓教于乐，娃看得进去；从北京<span class="em">航程近</span>，2 小时就到，最省心。'
   };
   await playAI(desc[sel]||desc.xa, 950);
@@ -3147,8 +3150,7 @@ async function doBooking(){
     const selTxt=[S.buyGo?'去程':'',S.buyBack?'返程':''].filter(Boolean).join('/');
     const selAll=[selTxt?`机票${selTxt}`:'',S.buyHotel?`酒店${nH}间2晚`:''].filter(Boolean).join('、')||'未选';
     return `${flightCards}${hotelCardHtml}
-    <div class="tc-sum"><span class="tc-sum-l">已选：${selAll}</span><span class="tc-sum-r">合计<span class="cur">¥</span><b>${c.payNow}</b></span></div>
-    <div class="bk-tknote"><span class="tkn-ic">🎫</span><span>景点门票可改期,先订机酒锁定行程 · 订完机酒我再帮你订景点</span></div>`;
+    <div class="tc-sum"><span class="tc-sum-l">已选：${selAll}</span><span class="tc-sum-r">合计<span class="cur">¥</span><b>${c.payNow}</b></span></div>`;
   }
   // ===== 出行人卡: 先声明节点(名单是机票的依据),商品之后再插入DOM =====
   // 预订人信息(用户细化):左=删除该行、右=编辑该行;头部「选择出行人清单 ›」;未填行红字「待补充」
@@ -3283,7 +3285,7 @@ async function doBooking(){
   // 选择出行人清单(演示:展开第一个未填的人做勾选/补充)
   const pickBtn=paxNode.querySelector('#paxPick');
   const firstEmpty=()=>paxList.querySelector('.prow.empty');
-  if(pickBtn) pickBtn.onclick=()=>{ const r=firstEmpty(); if(r) expandForm(r, +r.dataset.i); else alert('常用出行人已全部添加～'); };
+  if(pickBtn) pickBtn.onclick=()=>{ alert('展示用户的出行人信息列表，demo 未设计'); };
 
   // 底部: 一键预订(需出行人填齐)
   await playAI('都确认好就可以一键预订啦，我会用这份名单去授权、出票 👇', 500);
@@ -3530,11 +3532,11 @@ async function viewOrdersInChat(){
       <div class="ordc-f"><span class="l">待确认</span><span class="cur">¥</span><span class="amt">${c.T}</span></div></div>`, 400);
   }
   await sleep(300);
-  // 你还可以问(整宽灰色圆角框) —— 对齐设计稿 node 1114:16636:查看行程/行前准备/预订景点门票
+  // 你还可以问(整宽灰色圆角框):查看行程日历 / 预订景点门票 / 行程准备清单和注意事项
   const guide=addMsg(el(`<div class="ord-ask"><div class="ask-lb">你还可以问</div>
-    <span class="ask-box" id="gTrip">查看行程</span>
-    <span class="ask-box" id="gTip">行前准备清单和注意事项</span>
-    <span class="ask-box" id="gTk">预订景点门票</span></div>`));
+    <span class="ask-box" id="gTrip">查看行程日历</span>
+    <span class="ask-box" id="gTk">预订景点门票</span>
+    <span class="ask-box" id="gTip">行程准备清单和注意事项</span></div>`));
   guide.querySelector('#gTrip').onclick=showCal;
   guide.querySelector('#gTip').onclick=async ()=>{ guide.querySelector('#gTip').classList.add('used'); await askTips(); };
   guide.querySelector('#gTk').onclick=async ()=>{ await playUser('预订景点门票'); await playAI('景点门票预订马上就来～ 目前行程和机酒都已确认,门票可改期,稍后开放预订后我第一时间提醒你 🎫', 700); };
@@ -3699,20 +3701,19 @@ function renderCal(){
   }
   cal.innerHTML=`
     <div class="cal-top">
-      <div class="cal-mon"><div class="m">8月 <span>2026</span></div>
-        <div class="cal-seg" id="calSeg"><span class="sg${calType==='all'?' on':''}" data-t="all">全部</span><span class="sg${calType==='travel'?' on':''}" data-t="travel">旅游</span><span class="sg${calType==='biz'?' on':''}" data-t="biz">出差</span></div>
-      </div>
+      <div class="cal-hd"><div class="cal-title">全部行程</div><div class="cal-datepick" id="calDatePick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg><span>2026.9</span></div></div>
       <div class="cal-week">${week}</div>
     </div>
     <div class="cal-body">
       ${isTrip?`<div class="ov${ovFolded?' folded':''}" id="ovBox">
-        <div class="ov-h" id="ovHead"><span class="bar"></span><span class="t">行程概览 · 西安 3 天 2 晚（8/20～8/22）</span><span class="chev">▼</span></div>
+        <div class="ov-h" id="ovHead"><span class="bar"></span><span class="t">行程概览 · 西安 3 天亲子行</span><span class="chev">▼</span></div>
         <div class="ov-body"><div class="ov-body-in">${ovTable}</div></div>
       </div>`:''}
       ${dayHtml}
     </div>`;
-  // 类型开关
-  cal.querySelectorAll('#calSeg .sg').forEach(s=>{ s.onclick=()=>{ calType=s.dataset.t; renderCal(); }; });
+  // 日期切换入口(demo)
+  const dp=cal.querySelector('#calDatePick');
+  if(dp) dp.onclick=()=>alert('切换查看其他月份/日期的行程，demo 未设计');
   // 日期点击切换
   cal.querySelectorAll('.cal-week .dy').forEach(d=>{ d.onclick=()=>{ calSel=d.dataset.dd; renderCal(); }; });
   // 概览折叠(保持折叠状态)
